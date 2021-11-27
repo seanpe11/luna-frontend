@@ -1,0 +1,9 @@
+.Luna-header {
+  min-height: 7vh;
+  font-size: calc(10px + 1vmin);
+  margin: auto;
+}
+
+a { 
+  text-color: "black";
+}
