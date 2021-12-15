@@ -1,27 +1,29 @@
-import {Container, Row, Col} from "react-bootstrap";
-import '../css/Header.css'
+import '../css/Header.css';
 
-function Header() {
-    return <div>
-        <header className="Luna-header">
-            <Container>
-                <Row>
-                    <Col sm={3} style={{textAlign:"left"}}>
-                        <strong>LUNA</strong>
-                    </Col>
-                    <Col sm={6} style={{textAlign:"center"}}>
-                        <a className="mx-2" href="/">HOME</a>
-                        <a className="mx-2" href="/">FIND ME A DOCTOR</a>
-                        <a className="mx-2" href="/">DOCTORS</a>
-                    </Col>
-                    <Col sm={3} style={{textAlign:"right"}}>
-                        Your Name
-                    </Col>
-                </Row>
-            </Container>
+function Header({active}) {
+    return <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+            <a class="navbar-brand" href="/">Hidden brand</a>
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/about">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+            </ul>
+        </div>
+
+        <div class="">
             
-        </header>
-    </div>
+        </div>
+    </nav>
 }
 
 export default Header;

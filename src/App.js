@@ -1,11 +1,20 @@
 import './luna.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Header from './components/Header.js';
+import { Routes, Route } from "react-router-dom";
+import Home from './views/Home.js';
+import About from './views/About.js';
+import FindMe from './views/FindMe.js';
+import Recommendations from './views/Reocmmendations.js';
 
 function App() {
   return (
     <div className="App">
-      <Header/>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/findMe" element={<FindMe/>} />
+        <Route path="/recommendations" element={<Recommendations/>} />
+      </Routes>
     </div>
   );
 }
