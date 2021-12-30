@@ -4,11 +4,11 @@ import { Routes, Route } from "react-router-dom";
 import Home from './views/Home.js';
 import About from './views/About.js';
 import FindMe from './views/FindMe.js';
-import Recommendations from './views/Reocmmendations.js';
+import Recommendations from './views/Recommendations.js';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App h-100">
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
