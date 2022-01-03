@@ -8,7 +8,7 @@
 }
 
 .findMe-select {
-  height: 60px;
+  min-height: 80px;
   border: none;
   min-width: 1000px;
 }
@@ -18,10 +18,23 @@
 .findMe-select:focus {
   outline: none;
 }
-.findMe-select option{
-  min-width: 100px;
+.findMe-option-thin {
+  min-width: 30px;
   font-size: 1em;
-  padding: 10px 5px;
+  padding: 20px 5px;
+  text-align: center;
+  margin-right: 40px;
+  display: inline-block;
+  cursor: pointer;
+  border:rgb(0, 0, 0) solid 1px;
+  border-radius: 5px;
+  color: rgb(0, 0, 0);
+}
+
+.findMe-option-thicc {
+  min-width: 10px;
+  font-size: 1em;
+  padding: 50px 5px;
   text-align: center;
   margin-right: 40px;
   display: inline-block;
