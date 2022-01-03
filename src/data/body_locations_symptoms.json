@@ -1,6 +1,7 @@
 [
   {
     "ID": 16,
+    "pid": "abdomen",
     "Name": "Abdomen, pelvis & buttocks",
     "symptoms": [
       {
@@ -71,6 +72,7 @@
   },
   {
     "ID": 7,
+    "pid": "arms",
     "Name": "Arms & shoulder",
     "symptoms": [
       {
@@ -119,6 +121,7 @@
   },
   {
     "ID": 15,
+    "pid": "chest",
     "Name": "Chest & back",
     "symptoms": [
       {
@@ -233,6 +236,7 @@
   },
   {
     "ID": 6,
+    "pid": "head",
     "Name": "Head, throat & neck",
     "symptoms": [
       {
@@ -578,6 +582,7 @@
   },
   {
     "ID": 10,
+    "pid": "legs",
     "Name": "Legs",
     "symptoms": [
       {
@@ -614,6 +619,7 @@
   },
   {
     "ID": 17,
+    "pid": "general",
     "Name": "Skin, joints & general",
     "symptoms": [
       {
