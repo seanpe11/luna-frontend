@@ -1,9 +1,8 @@
-import './luna.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Routes, Route } from "react-router-dom";
 import Home from './views/Home.js';
 import About from './views/About.js';
-import FindMe from './views/FindMe.js';
+import FindMe from './views/FindMe2.js';
 import Recommendations from './views/Recommendations.js';
 
 function App() {

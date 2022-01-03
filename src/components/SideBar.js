@@ -39,20 +39,18 @@ function SideBar() {
 
     let itemList=items.map((item,index)=>{
         return (
-            <>
-                <div className='w-100 mb-1 row'>
-                    <div className='col-3'>
-                        {progressChecker(item.progress)}
-                        {
-                            index !== items.length-1 && <img src={line} alt='logo' width='50px'/>
-                        }  
-                    </div>
-                    <div className='col-9'>
-                        <span style={{fontWeight: 'bolder'}}>{item.title}</span> <br/>
-                        <span>{item.desc}</span>           
-                    </div> 
+            <div className='w-100 mb-1 row'>
+                <div className='col-3'>
+                    {progressChecker(item.progress)}
+                    {
+                        index !== items.length-1 && <img src={line} alt='logo' width='50px'/>
+                    }  
                 </div>
-            </>
+                <div className='col-9'>
+                    <span style={{fontWeight: 'bolder'}}>{item.title}</span> <br/>
+                    <span>{item.desc}</span>           
+                </div> 
+            </div>
         )
     })
 
