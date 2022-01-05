@@ -17,6 +17,12 @@ function Header({active}) {
             <li class="nav-item">
                 <a class="nav-link" href="/findMe">Find Me</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/login">Login</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/register">Register</a>
+            </li>
             </ul>
         </div>
 

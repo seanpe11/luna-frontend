@@ -21,7 +21,24 @@ class FindMe extends React.Component {
       symptomselect: "",
       frequencyselect: "",
       moredetails: "",
-      inputedsymptoms: []
+      inputedsymptoms: [],
+      sidedata: [
+        {
+            title: 'Symptoms',
+            desc: 'Input the symptoms you are currently experiencing',
+            progress: 'done',
+        },
+        {
+            title: 'Preference',
+            desc: 'List what types of doctors you prefer',
+            progress: 'inprogress'
+        },
+        {
+            title: 'Confirm Inputs',
+            desc: 'Confirm your inputs to generate the most appropriate list of doctors to consult with',
+            progress: 'notdone'
+        },
+      ],
     }
   }
 
@@ -73,7 +90,7 @@ class FindMe extends React.Component {
     return(
       <>
         <div className="row h-100 mx-0">
-          <SideBar />
+          <SideBar sidedata={this.state.sidedata}/>
           <div className="col-4 px-0">
             <div className="mb-3">
               <img className="mx-auto d-block" src={head} alt='head' onClick={() => {this.bodyClicker("head")}}/>

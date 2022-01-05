@@ -4,6 +4,8 @@ import Home from './views/Home.js';
 import About from './views/About.js';
 import FindMe from './views/FindMe2.js';
 import Recommendations from './views/Recommendations.js';
+import Register from './views/Register';
+import Login from './views/Login';
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/findMe" element={<FindMe/>} />
         <Route path="/recommendations" element={<Recommendations/>} />
+        <Route path="/register" element={<Register/>} />
+        <Route path="/login" element={<Login/>} />
       </Routes>
     </div>
   );
