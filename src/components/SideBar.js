@@ -56,7 +56,7 @@ function SideBar() {
 
     return(
         <>
-            <div className='h-100 col-4 p-5' style={{backgroundColor: '#3B4AD0', color: 'white'}}>
+            <div className='h-100 col-3 p-5' style={{backgroundColor: '#3B4AD0', color: 'white'}}>
                 <div className='w-100 d-flex mb-4'>
                     <img className='me-3' src={logo} alt='logo' width='75px'/>
                     <span style={{fontSize: '40px', fontWeight: 'bolder'}}>LUNA</span>
