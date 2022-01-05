@@ -2,6 +2,7 @@ import React from "react"
 import SideBar from "../components/SideBar"
 
 class Register extends React.Component {
+  
   constructor(){
     super()
     this.state = {

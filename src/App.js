@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Routes, Route } from "react-router-dom";
 import Home from './views/Home.js';
 import About from './views/About.js';
-import FindMe from './views/FindMe2.js';
+import FindMe from './views/FindMe.js';
 import Recommendations from './views/Recommendations.js';
 import Register from './views/Register';
 import Login from './views/Login';

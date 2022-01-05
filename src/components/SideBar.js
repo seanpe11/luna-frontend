@@ -17,6 +17,7 @@ class SideBar extends React.Component {
         default:
             return
     }
+  }
 
   render() {
     return(

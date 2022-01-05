@@ -20,7 +20,7 @@ class Symptoms extends React.Component {
       symptomselect: "",
       frequencyselect: "",
       moredetails: "",
-      inputedsymptoms: []
+      inputedsymptoms: [],
     }
   }
 
@@ -71,77 +71,76 @@ class Symptoms extends React.Component {
   render() {
     return(
       <>
-          <div className="col-4 px-0">
-            <div className="mb-3">
-              <img className="mx-auto d-block" src={head} alt='head' onClick={() => {this.bodyClicker("head")}}/>
-            </div>
-            <div className="mb-3 row">
-              <div className="col-4 p-0"><img className="mx-auto d-block" src={larm} alt='larm' onClick={() => {this.bodyClicker("arms")}}/></div>
-              <div className="col-4 p-0">
-                <img className="mb-3 mx-auto d-block" src={chest} alt='chest' onClick={() => {this.bodyClicker("chest")}}/>
-                <img className="mb-3 mx-auto d-block" src={abdomen} alt='abdomen' onClick={() => {this.bodyClicker("abdomen")}}/>
-                <img className="mb-3 mx-auto d-block" src={legs} alt='legs' onClick={() => {this.bodyClicker("legs")}}/>
-              </div>
-              <div className="col-4 p-0"><img className="mx-auto d-block" src={rarm} alt='rarm' onClick={() => {this.bodyClicker("arms")}}/></div>
-            </div>
+        <div className="col-4 px-0">
+          <div className="mb-3">
+            <img className="mx-auto d-block" src={head} alt='head' onClick={() => {this.bodyClicker("head")}}/>
           </div>
-          <div className="col-5 px-0">
-
-            <div class="me-5 mt-5">
-              <h1>Input your symptoms</h1>
-              <p>{this.state.tiptext}</p>
+          <div className="mb-3 row">
+            <div className="col-4 p-0"><img className="mx-auto d-block" src={larm} alt='larm' onClick={() => {this.bodyClicker("arms")}}/></div>
+            <div className="col-4 p-0">
+              <img className="mb-3 mx-auto d-block" src={chest} alt='chest' onClick={() => {this.bodyClicker("chest")}}/>
+              <img className="mb-3 mx-auto d-block" src={abdomen} alt='abdomen' onClick={() => {this.bodyClicker("abdomen")}}/>
+              <img className="mb-3 mx-auto d-block" src={legs} alt='legs' onClick={() => {this.bodyClicker("legs")}}/>
             </div>
+            <div className="col-4 p-0"><img className="mx-auto d-block" src={rarm} alt='rarm' onClick={() => {this.bodyClicker("arms")}}/></div>
+          </div>
+        </div>
+        <div className="col-5 px-0">
 
-            <button type="button" class="btn btn-outline-secondary" onClick={() => {this.bodyClicker("general")}}>Skin, Joints and General Symptoms</button>
+          <div class="me-5 mt-5">
+            <h1>Input your symptoms</h1>
+            <p>{this.state.tiptext}</p>
+          </div>
 
-            <div class={this.state.hidden ? "card d-none" : "card mt-4 me-5"}>
+          <button type="button" class="btn btn-outline-secondary" onClick={() => {this.bodyClicker("general")}}>Skin, Joints and General Symptoms</button>
+
+          <div class={this.state.hidden ? "card d-none" : "card mt-4 me-5"}>
+            <div class="card-body">
+              <div className="">
+                <h5 class="card-title">{this.state.bodySelected}</h5>
+              </div>
               <div class="card-body">
-                <div className="">
-                  <h5 class="card-title">{this.state.bodySelected}</h5>
+                <div class="form-floating mb-4">
+                  <select class="form-select" id="symptomselect" aria-label="Floating label select example" onChange={evt => this.setState({symptomselect: evt.target.value})}>
+                  <option selected> </option>
+                    {
+                      this.state.symptomList.map((item,index)=>{
+                          return (
+                            <option value={item.ID}>{item.Name}</option>
+                          )
+                        }
+                      )
+                    }
+                  </select>
+                  <label for="floatingSelect">Symptom</label>
                 </div>
-                <div class="card-body">
-                  <div class="form-floating mb-4">
-                    <select class="form-select" id="symptomselect" aria-label="Floating label select example" onChange={evt => this.setState({symptomselect: evt.target.value})}>
+
+                <div class="form-floating mb-4">
+                  <select class="form-select" id="frequencyselect" aria-label="Floating label select example" onChange={evt => this.setState({frequencyselect: evt.target.value})}>
                     <option selected> </option>
-                      {
-                        this.state.symptomList.map((item,index)=>{
-                            return (
-                              <option value={item.ID}>{item.Name}</option>
-                            )
-                          }
-                        )
-                      }
-                    </select>
-                    <label for="floatingSelect">Symptom</label>
-                  </div>
-
-                  <div class="form-floating mb-4">
-                    <select class="form-select" id="frequencyselect" aria-label="Floating label select example" onChange={evt => this.setState({frequencyselect: evt.target.value})}>
-                      <option selected> </option>
-                      {
-                        this.state.frequencyList.map((item,index)=>{
-                            return (
-                              <option value={item}>{item}</option>
-                            )
-                          }
-                        )
-                      }
-                    </select>
-                    <label for="floatingSelect">Frequency</label>
-                  </div>
-
-                  <div class="form-floating mb-4">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style={{height: "100px"}} onChange={evt => this.setState({moredetails: evt.target.value})}> </textarea>
-                    <label for="floatingTextarea">More Details</label>
-                  </div>
-
-                  <button type="button" class="btn btn-primary" onClick={() => this.inputSymptom()}>Add Symptom</button>
-                  
+                    {
+                      this.state.frequencyList.map((item,index)=>{
+                          return (
+                            <option value={item}>{item}</option>
+                          )
+                        }
+                      )
+                    }
+                  </select>
+                  <label for="floatingSelect">Frequency</label>
                 </div>
+
+                <div class="form-floating mb-4">
+                  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style={{height: "100px"}} onChange={evt => this.setState({moredetails: evt.target.value})}> </textarea>
+                  <label for="floatingTextarea">More Details</label>
+                </div>
+
+                <button type="button" class="btn btn-primary" onClick={() => this.inputSymptom()}>Add Symptom</button>
+                
               </div>
             </div>
-            <button type="button" class="btn btn-primary position-absolute" style={{bottom: '30px', right: '30px'}} onClick={() => this.inputSymptom()}>Go to Preference</button>
           </div>
+        </div>
 
         <div class="card position-absolute" style={{bottom: '30px', left: '30px', width: '250px'}}>
           <div class="card-body">
