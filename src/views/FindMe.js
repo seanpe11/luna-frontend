@@ -160,7 +160,7 @@ class FindMe extends React.Component {
                 </div>
               </div>
             </div>
-            <button type="button" class="btn btn-primary position-absolute" style={{bottom: '30px', right: '30px'}} onClick={() => this.inputSymptom()}>Go to Preference</button>
+            <button type="button" class="btn btn-primary position-absolute" style={{bottom: '30px', right: '30px'}}>Go to Preference</button>
           </div>
         </div>
 
