@@ -111,6 +111,9 @@ class FindMe extends React.Component {
         valueSelected = parseInt(e.target.value)
         preferences.experience = valueSelected;
         break;
+      case "Gender":
+        valueSelected = (e.target.value)
+        preferences.gender = valueSelected;
       default:
         break;
     }    
@@ -151,10 +154,9 @@ class FindMe extends React.Component {
             <div class="findMe-wrapper col-8">
                 <h3><strong>What age group do you prefer for your Doctor’s Age?</strong></h3>
                 <select class="findMe-select" multiple onChange={(e) => this.onSelectChange("Age", e)}>
-                    <option class="findMe-option-thicc" value="500">Less than PHP 500.00</option>
-                    <option class="findMe-option-thicc" value="1000">PHP 500.00 to PHP 1,000.00</option>
-                    <option class="findMe-option-thicc" value="2000">PHP 1,000 to PHP 2,000.00</option>
-                    <option class="findMe-option-thicc" value="2001">More than PHP 2,000.00</option>
+                    <option class="findMe-option-thicc" value="30">Younger than 30</option>
+                    <option class="findMe-option-thicc" value="45">30 to 45 years old</option>
+                    <option class="findMe-option-thicc" value="46">45 years or older</option>
                     <option class="findMe-option-thicc" value="-1">No Preference</option>
                 </select>
 
@@ -245,7 +247,7 @@ class FindMe extends React.Component {
                 type="button" 
                 class="btn btn-primary position-absolute" 
                 style={{bottom: '30px', right: '30px', width: '200px'}}
-                onClick={() => {this.setState({progressIndex: 2})}}
+                onClick={() => {this.setState({progressIndex: 2}, () => {this.componentDidMount()})}}
               >Go to Preference</button>
             </> :
             <>
