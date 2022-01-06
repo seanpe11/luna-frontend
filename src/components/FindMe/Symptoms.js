@@ -76,13 +76,13 @@ class Symptoms extends React.Component {
             <img className="mx-auto d-block" src={head} alt='head' onClick={() => {this.bodyClicker("head")}}/>
           </div>
           <div className="mb-3 row">
-            <div className="col-4 p-0"><img className="mx-auto d-block" src={larm} alt='larm' onClick={() => {this.bodyClicker("arms")}}/></div>
+            <div className="col-4 p-0"><img className="float-end d-block" src={larm} alt='larm' onClick={() => {this.bodyClicker("arms")}}/></div>
             <div className="col-4 p-0">
               <img className="mb-3 mx-auto d-block" src={chest} alt='chest' onClick={() => {this.bodyClicker("chest")}}/>
               <img className="mb-3 mx-auto d-block" src={abdomen} alt='abdomen' onClick={() => {this.bodyClicker("abdomen")}}/>
               <img className="mb-3 mx-auto d-block" src={legs} alt='legs' onClick={() => {this.bodyClicker("legs")}}/>
             </div>
-            <div className="col-4 p-0"><img className="mx-auto d-block" src={rarm} alt='rarm' onClick={() => {this.bodyClicker("arms")}}/></div>
+            <div className="col-4 p-0"><img className="float-start d-block" src={rarm} alt='rarm' onClick={() => {this.bodyClicker("arms")}}/></div>
           </div>
         </div>
         <div className="col-5 px-0">

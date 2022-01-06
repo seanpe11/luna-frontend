@@ -14,8 +14,32 @@ class FindMe extends React.Component {
   }
 
   componentDidMount() {
-    console.log("hit")
     this.setState({sidedata: this.changeProgress()})
+  }
+
+  changeContent() {
+    switch(this.state.progressIndex){
+      case 1:
+        return(
+          <>
+            <Symptoms />
+            <button 
+              type="button" 
+              class="btn btn-primary position-absolute" 
+              style={{bottom: '30px', right: '30px', width: '200px'}}
+              onClick={() => {this.setState({progressIndex: 2}, () => {this.componentDidMount()})}}
+            >Go to Preference</button>
+          </> 
+        )
+      case 2:
+        return(
+          <>
+            <span className="col-6">Preferences</span>
+          </> 
+        )
+      default:
+        return null
+    }
   }
 
   changeProgress() {
@@ -88,22 +112,7 @@ class FindMe extends React.Component {
       <>
         <div className="row h-100 mx-0">
           <SideBar sidedata={this.state.sidedata} />
-          { this.state.progressIndex === 1 ?
-            <>
-              <Symptoms />
-              <button 
-                type="button" 
-                class="btn btn-primary position-absolute" 
-                style={{bottom: '30px', right: '30px', width: '200px'}}
-                onClick={() => {this.setState({progressIndex: 2})}}
-              >Go to Preference</button>
-            </> :
-            <>
-              <div className="col-6">
-                <span>Next</span>
-              </div>
-            </>
-          }
+          { this.changeContent() }
         </div>
       </>
     )
