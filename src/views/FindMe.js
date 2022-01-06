@@ -23,7 +23,6 @@ class FindMe extends React.Component {
   }
 
   componentDidMount() {
-    console.log("hit")
     this.setState({sidedata: this.changeProgress()})
   }
 
