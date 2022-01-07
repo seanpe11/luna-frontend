@@ -6,6 +6,7 @@ import FindMe from './views/FindMe.js';
 import Recommendations from './views/Recommendations.js';
 import Register from './views/Register';
 import Login from './views/Login';
+import Doctors from './views/Doctors';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/recommendations" element={<Recommendations/>} />
         <Route path="/register" element={<Register/>} />
         <Route path="/login" element={<Login/>} />
+        <Route path="/doctors" element={<Doctors />} />
       </Routes>
     </div>
   );
