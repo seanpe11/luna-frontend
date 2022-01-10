@@ -4,7 +4,7 @@ import dp from "../../images/profile_pic.png";
 function HomeCard() {
   return (
     <div class="home-card text-white mb-3">
-      <div class="row g-0">
+      <div class="home-row g-0">
         <div class="col-md-2 d-inline-flex justify-content-center">
           <img
             className="dp m-5 rounded-pill"
