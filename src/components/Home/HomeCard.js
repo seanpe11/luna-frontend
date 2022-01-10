@@ -3,7 +3,7 @@ import dp from "../../images/profile_pic.png";
 
 function HomeCard() {
   return (
-    <div class="card text-white mb-3">
+    <div class="home-card text-white mb-3">
       <div class="row g-0">
         <div class="col-md-2 d-inline-flex justify-content-center">
           <img
