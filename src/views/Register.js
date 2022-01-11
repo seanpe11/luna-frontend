@@ -127,7 +127,7 @@ class Register extends React.Component {
       case 1:
         return (
           <div class="container ps-5 h-100 d-flex align-items-center">
-            <div class="me-5 mt-5">
+            <div>
               <h1>Personal Details</h1>
               <p>Provide your name, age, and email</p>
               <div className="row">

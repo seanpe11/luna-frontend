@@ -12,14 +12,14 @@ class FindMe extends React.Component {
       progressIndex: 1,
       preferenceIndex: 0,
       preferences: {
-        location: "",
-        age: "",
-        price: 0,
-        experience: 0,
-        gender: "",
+        location: null,
+        age: null,
+        price: null,
+        experience: null,
+        gender: null,
       },
       sidedata: [],
-      inputedsymptoms: []
+      inputedsymptoms: [],
     }
     this.childChangeProgress = this.childChangeProgress.bind(this)
     this.pushSymptom = this.pushSymptom.bind(this)
@@ -104,28 +104,61 @@ class FindMe extends React.Component {
     }
   }
 
-  onSelectChange = (param, e) => {
+  highlightOption(param, value){
+    switch(param){
+      case "Location":
+        if(this.state.preferences.location === value)
+          return 'findMe-option-thicc option-selected'
+        else
+          return 'findMe-option-thicc'
+      case "Price":
+        if(this.state.preferences.price === parseInt(value))
+          return 'findMe-option-thicc option-selected'
+        else
+          return 'findMe-option-thicc'
+      case "Age":
+        if(this.state.preferences.age === parseInt(value))
+          return 'findMe-option-thicc option-selected'
+        else
+          return 'findMe-option-thicc'
+      case "Experience":
+        if(this.state.preferences.experience === parseInt(value))
+          return 'findMe-option-thicc option-selected'
+        else
+          return 'findMe-option-thicc'
+      case "Gender":
+        if(this.state.preferences.gender === value)
+          return 'findMe-option-thicc option-selected'
+        else
+          return 'findMe-option-thicc'
+      default:
+        return 'findMe-option-thicc'
+    }
+  }
+
+  onSelectChange = (param, value) => {
     var preferences = this.state.preferences
     var valueSelected
     switch(param){
       case "Price":
-        valueSelected = parseInt(e.target.value)
+        valueSelected = parseInt(value)
         preferences.price = valueSelected;
         break;
       case "Location":
-        valueSelected = (e.target.value)
+        valueSelected = (value)
         preferences.location = valueSelected;
         break;
       case "Age":
-        valueSelected = parseInt(e.target.value)
+        valueSelected = parseInt(value)
         preferences.age = valueSelected;
+        console.log(preferences.age)
         break;
       case "Experience":
-        valueSelected = parseInt(e.target.value)
+        valueSelected = parseInt(value)
         preferences.experience = valueSelected;
         break;
       case "Gender":
-        valueSelected = (e.target.value)
+        valueSelected = (value)
         preferences.gender = valueSelected;
         break
       default:
@@ -142,6 +175,8 @@ class FindMe extends React.Component {
       else {
         this.setState({progressIndex: 1}, () => {this.componentDidMount()})
       }
+    } else if (this.state.progressIndex === 3){
+      this.setState({progressIndex: 2}, () => {this.componentDidMount()})
     }
   }
 
@@ -151,72 +186,62 @@ class FindMe extends React.Component {
           return (
             <div class="findMe-wrapper">
                 <h3><strong>Where would you prefer your doctor's clinic to be in?</strong></h3>
-                <select class="findMe-select" multiple onChange={(e) => this.onSelectChange("Location", e)}>
-                    <option class="findMe-option-thicc" value="Manila">Manila</option>
-                    <option class="findMe-option-thicc" value="Marikina">Marikina</option>
-                    <option class="findMe-option-thicc" value="Taguig">Taguig</option>
-                    <option class="findMe-option-thicc" value="Quezon City">Quezon City</option>
-                    <option class="findMe-option-thicc" value="Tawi-Tawi">Tawi-Tawi</option>
-                    <option class="findMe-option-thicc" value="Dipolog">Dipolog</option>
-                    <option class="findMe-option-thicc" value="Davao">Davao</option>
-                    <option class="findMe-option-thicc" value="Zomboanga">Zomboanga</option>
-                    <option class="findMe-option-thicc" value="Bacolod">Bacolod</option>
-                    <option class="findMe-option-thicc" value="Cebu">Cebu</option>
-                    <option class="findMe-option-thicc" value="Ilo-Ilo">Ilo-Ilo</option>
-                    <option class="findMe-option-thicc" value="">No Preference</option>
-                </select>
+                  <button class={this.highlightOption("Location", "Manila")} onClick={(e) => this.onSelectChange("Location", "Manila", e)}>Manila</button>
+                  <button class={this.highlightOption("Location", "Marikina")} onClick={(e) => this.onSelectChange("Location", "Marikina", e)}>Marikina</button>
+                  <button class={this.highlightOption("Location", "Taguig")} onClick={(e) => this.onSelectChange("Location", "Taguig", e)}>Taguig</button>
+                  <button class={this.highlightOption("Location", "Quezon City")} onClick={(e) => this.onSelectChange("Location", "Quezon City", e)}>Quezon City</button>
+                  <button class={this.highlightOption("Location", "Tawi-Tawi")} onClick={(e) => this.onSelectChange("Location", "Tawi-Tawi", e)}>Tawi-Tawi</button>
+                  <button class={this.highlightOption("Location", "Dipolog")} onClick={(e) => this.onSelectChange("Location", "Dipolog", e)}>Dipolog</button>
+                  <button class={this.highlightOption("Location", "Davao")} onClick={(e) => this.onSelectChange("Location", "Davao", e)}>Davao</button>
+                  <button class={this.highlightOption("Location", "Zambaonga")} onClick={(e) => this.onSelectChange("Location", "Zambaonga", e)}>Zambaonga</button>
+                  <button class={this.highlightOption("Location", "Bacolod")} onClick={(e) => this.onSelectChange("Location", "Bacolod", e)}>Bacolod</button>
+                  <button class={this.highlightOption("Location", "Cebu")} onClick={(e) => this.onSelectChange("Location", "Cebu", e)}>Cebu</button>
+                  <button class={this.highlightOption("Location", "Ilo-Ilo")} onClick={(e) => this.onSelectChange("Location", "Ilo-Ilo", e)}>Ilo-Ilo</button>
+                  <button class={this.highlightOption("Location", "")} onClick={(e) => this.onSelectChange("Location", "", e)}>No Preference</button>
             </div>
           )
       case 1: // age
           return (
             <div class="findMe-wrapper col-8">
                 <h3><strong>What age group do you prefer for your Doctor’s Age?</strong></h3>
-                <select class="findMe-select" multiple onChange={(e) => this.onSelectChange("Age", e)}>
-                    <option class="findMe-option-thicc" value="30">Younger than 30</option>
-                    <option class="findMe-option-thicc" value="45">30 to 45 years old</option>
-                    <option class="findMe-option-thicc" value="46">45 years or older</option>
-                    <option class="findMe-option-thicc" value="-1">No Preference</option>
-                </select>
+                <button class={this.highlightOption("Age", "30")} onClick={(e) => this.onSelectChange("Age", "30", e)}>Younger than 30</button>
+                <button class={this.highlightOption("Age", "45")} onClick={(e) => this.onSelectChange("Age", "45", e)}>30 to 45 years old</button>
+                <button class={this.highlightOption("Age", "46")} onClick={(e) => this.onSelectChange("Age", "46", e)}>45 years or older</button>
+                <button class={this.highlightOption("Age", "-1")} onClick={(e) => this.onSelectChange("Age", "-1", e)}>No Preference</button>
             </div>
           )
       case 2: // experience
           return (
             <div class="findMe-wrapper col-8">
                 <h3><strong>How much years of experience do you prefer with your doctors?</strong></h3>
-                <select class="findMe-select" multiple onChange={(e) => this.onSelectChange("Experience", e)}>
-                    <option class="findMe-option-thicc" value="0">Less than 10 years of experience</option>
-                    <option class="findMe-option-thicc" value="10">10 or more years of experience</option>
-                    <option class="findMe-option-thicc" value="20">20 or more years of experience</option>
-                    <option class="findMe-option-thicc" value="-1">No Preference</option>
-                </select>
+                <button class={this.highlightOption("Experience", "0")} onClick={(e) => this.onSelectChange("Experience", "0", e)}>Less than 10 years of experience</button>
+                <button class={this.highlightOption("Experience", "10")} onClick={(e) => this.onSelectChange("Experience", "10", e)}>10 or more years of experience</button>
+                <button class={this.highlightOption("Experience", "20")} onClick={(e) => this.onSelectChange("Experience", "20", e)}>20 or more years of experience</button>
+                <button class={this.highlightOption("Experience", "-1")} onClick={(e) => this.onSelectChange("Experience", "-1", e)}>No Preferece</button>
+
             </div>
           )
       case 3: // price
           return (
             <div class="findMe-wrapper col-8">
                 <h3><strong>How much can you budget for doctor consultations?</strong></h3>
-                <select class="findMe-select" multiple onChange={(e) => this.onSelectChange("Price", e)}>
-                    <option class="findMe-option-thicc" value="500">Less than PHP 500.00</option>
-                    <option class="findMe-option-thicc" value="1000">PHP 500.00 to PHP 1,000.00</option>
-                    <option class="findMe-option-thicc" value="2000">PHP 1,000 to PHP 2,000.00</option>
-                    <option class="findMe-option-thicc" value="2001">More than PHP 2,000.00</option>
-                    <option class="findMe-option-thicc" value="-1">No Preference</option>
-                </select>
+                <button class={this.highlightOption("Price", "500")} onClick={(e) => this.onSelectChange("Price", "500", e)}>Less than PHP 500.00</button>
+                <button class={this.highlightOption("Price", "1000")} onClick={(e) => this.onSelectChange("Price", "1000", e)}>PHP 500.00 to PHP 1,000.00</button>
+                <button class={this.highlightOption("Price", "2000")} onClick={(e) => this.onSelectChange("Price", "2000", e)}>PHP 1,000 to PHP 2,000.00</button>
+                <button class={this.highlightOption("Price", "2001")} onClick={(e) => this.onSelectChange("Price", "2001", e)}>More than PHP 2,000.00</button>
+                <button class={this.highlightOption("Price", "-1")} onClick={(e) => this.onSelectChange("Price", "-1", e)}>No preference</button>
             </div>
           )
       case 4: // gender
           return (
             <div class="findMe-wrapper col-8">
                 <h3><strong>What is your preferred sex in your doctors?</strong></h3>
-                <select class="findMe-select" multiple onChange={(e) => this.onSelectChange("Gender", e)}>
-                    <option class="findMe-option-thicc" value="male">Male</option>
-                    <option class="findMe-option-thicc" value="female">Female</option>
-                    <option class="findMe-option-thicc" value="none">No Preference</option>
-                </select>
+                <button class={this.highlightOption("Gender", "male")} onClick={(e) => this.onSelectChange("Gender", "male", e)}>Male</button>
+                <button class={this.highlightOption("Gender", "female")} onClick={(e) => this.onSelectChange("Gender", "female", e)}>Female</button>
+                <button class={this.highlightOption("Gender", "none")} onClick={(e) => this.onSelectChange("Gender", "none", e)}>No Preference</button>
             </div>
           )
 
-      
       default:
           return(
             <div>something broke</div>
@@ -225,16 +250,17 @@ class FindMe extends React.Component {
       
   }
 
-  render() {
-    return(
-      <>
-        <div className="row h-100 mx-0">
-          <SideBar sidedata={this.state.sidedata} changeProgress={this.childChangeProgress}/>
-          { this.state.progressIndex === 1 ?
-            <>
-              <Symptoms pushSymptom={this.pushSymptom}/>
-            </> :
-            <>
+  contentHandler() {
+    switch(this.state.progressIndex){
+      case 1:
+        return (
+          <>
+            <Symptoms pushSymptom={this.pushSymptom}/>
+          </>
+        )
+      case 2:
+        return (
+          <>
             <div className="col-9 m-0 p-0 d-flex flex-column h-100">
               <div className="mt-5 ms-5">
                 <h1>Doctor Preferences</h1>
@@ -246,10 +272,123 @@ class FindMe extends React.Component {
                 </div>
               </div>
             </div>
-              
-            </>
-          }
+          </>
+        )
+      case 3:
+      //   symptomid: this.state.symptomselect,
+      // frequency: this.state.frequencyselect,
+      // details: this.state.moredetails,
+      // symptom: this.state.symptomList.find(item => item.ID === parseInt(this.state.symptomselect)),
+      // location: this.state.bodySelected
+        return (
+          <>
+            <div className="col-9 pt-5 px-5">
+              <h1>Confirm Input</h1>
+              <span>Verify if the information below is correct</span>
+              <div className="mt-5 rounded-3">
+                <h3>Symptom List</h3>
+                {
+                  this.state.inputedsymptoms.map((item, index) => {
+                    return (
+                      <>
+                        <span style={{fontSize: '1.3rem'}}>{item.symptom.Name} - {item.frequency}</span> <br />
+                        <span className="fst-italic">{item.location}</span> <br/>
+                        <span className="text-secondary">{item.details}</span>
+                        <br />
+                      </>
+                    )
+                  })
+                }
+              </div>
+              <div className="mt-5 rounded-3">
+                <h3>Doctor Preferences</h3>
+                {
+                  <table class="table">
+                    <col style={{width: "30%"}} />
+	                  <col style={{width: "70%"}}  />
+                    <tbody>
+                      <tr>
+                        <th>Doctor Location</th>
+                        <td>{this.state.preferences.location}</td>
+                      </tr>
+                      <tr>
+                        <th>Doctor Age</th>
+                        <td>{this.state.preferences.age}</td>
+                      </tr>
+                      <tr>
+                        <th>Doctor Experience</th>
+                        <td>{this.state.preferences.experience}</td>
+                      </tr>
+                      <tr>
+                        <th>Consultation Fee</th>
+                        <td>{this.state.preferences.price}</td>
+                      </tr>
+                      <tr>
+                        <th>Doctor Sex</th>
+                        <td>{this.state.preferences.gender}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                }
+              </div>
+            </div>
+          </>
+        )
+      default:
+        return (
+          <>
+            Content Handler Error
+          </>
+        )
+    }
+  }
+
+  nextButtonHandler() {
+    switch (this.state.progressIndex){
+      case 1:
+        return(
+          <button
+            type="button"
+            class="btn btn-primary"
+            style={{width: '200px'}}
+            onClick={() => {this.setState({progressIndex: 2}, () => {this.componentDidMount()})}}
+          >Go to Preference</button>
+          )
+      case 2:   
+        if(this.state.preferenceIndex < 4) 
+            return (<button 
+              type="button" 
+              class="btn btn-primary" 
+              style={{width: '200px'}}
+              onClick={() => {this.setState({preferenceIndex: this.state.preferenceIndex + 1})}}
+              >Next</button>)
+        else
+            return(<button 
+              type="button" 
+              class="btn btn-primary" 
+              style={{width: '200px'}}
+              onClick={() => {this.setState({progressIndex: 3}, () => {this.componentDidMount()})}}
+              >Review Inputs</button>)
+      case 3:
+        return(<button
+            type="button"
+            class="btn btn-primary"
+            style={{width: '200px'}}
+            onClick={() => {console.log("SENDING")}}
+          >Find me a Doctor!</button>)
+      default:
+        break;
+    }
+  }
+
+  render() {
+    return(
+      <>
+        <div className="row h-100 mx-0">
+          <SideBar sidedata={this.state.sidedata} changeProgress={this.childChangeProgress}/>
+          { this.contentHandler() }
           <span className="position-absolute" style={{bottom: '30px', right: '30px', width: 'auto'}}> 
+
             { this.state.progressIndex > 1 && 
               <button
                 type="button"
@@ -258,42 +397,33 @@ class FindMe extends React.Component {
                 onClick={() => {this.backHandler()}}
               >Back</button>
             }
-            {this.state.progressIndex === 2 ?
-              <button 
-              type="button" 
-              class="btn btn-primary" 
-              style={{width: '200px'}}
-              onClick={() => {this.setState({preferenceIndex: this.state.preferenceIndex + 1})}}
-              >Next</button> : 
-              <button
-                type="button"
-                class="btn btn-primary"
-                style={{width: '200px'}}
-                onClick={() => {this.setState({progressIndex: 2}, () => {this.componentDidMount()})}}
-              >Go to Preference</button>
-            }
+
+            {this.nextButtonHandler()}
           </span>
 
-          <div class="card position-absolute" style={{ bottom: '30px', left: '30px', width: '250px' }}>
-            <div class="card-body">
-              <h5 class="card-title">Symptoms</h5>
-              {
-                this.state.inputedsymptoms.length > 0 ? this.state.inputedsymptoms.map((item, index) => {
-                  return (
-                    <>
-                      <span style={{ fontWeight: 'bolder' }}>{item.symptom.Name}</span> <br />
-                      <span>{item.location}</span><br />
-                    </>
-                  )
+          {
+            this.state.progressIndex !== 3 && 
+            <div class="card position-absolute" style={{ bottom: '30px', left: '30px', width: '250px' }}>
+              <div class="card-body">
+                <h5 class="card-title">Symptoms</h5>
+                {
+                  this.state.inputedsymptoms.length > 0 ? this.state.inputedsymptoms.map((item, index) => {
+                    return (
+                      <>
+                        <span style={{ fontWeight: 'bolder' }}>{item.symptom.Name}</span> <br />
+                        <span>{item.location}</span><br />
+                      </>
+                    )
+                  }
+                  ) :
+                    <p class="card-text text-secondary">
+                      No symptoms inputed
+                    </p>
                 }
-                ) :
-                  <p class="card-text text-secondary">
-                    No symptoms inputed
-                  </p>
-              }
 
+              </div>
             </div>
-          </div>
+          }
         </div>
       </>
     )
