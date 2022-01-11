@@ -1,6 +1,7 @@
 import React from "react"
 import SideBar from "../components/SideBar"
 import Symptoms from "../components/FindMe/Symptoms"
+import { Link } from "react-router-dom"
 import "../css/luna.css"
 
 
@@ -186,17 +187,17 @@ class FindMe extends React.Component {
           return (
             <div class="findMe-wrapper">
                 <h3><strong>Where would you prefer your doctor's clinic to be in?</strong></h3>
-                  <button class={this.highlightOption("Location", "Manila")} onClick={(e) => this.onSelectChange("Location", "Manila", e)}>Manila</button>
-                  <button class={this.highlightOption("Location", "Marikina")} onClick={(e) => this.onSelectChange("Location", "Marikina", e)}>Marikina</button>
-                  <button class={this.highlightOption("Location", "Taguig")} onClick={(e) => this.onSelectChange("Location", "Taguig", e)}>Taguig</button>
+                  <button class={this.highlightOption("Location", "Manila City")} onClick={(e) => this.onSelectChange("Location", "Manila City", e)}>Manila</button>
+                  {/* <button class={this.highlightOption("Location", "Marikina")} onClick={(e) => this.onSelectChange("Location", "Marikina", e)}>Marikina</button> */}
+                  {/* <button class={this.highlightOption("Location", "Taguig")} onClick={(e) => this.onSelectChange("Location", "Taguig", e)}>Taguig</button> */}
                   <button class={this.highlightOption("Location", "Quezon City")} onClick={(e) => this.onSelectChange("Location", "Quezon City", e)}>Quezon City</button>
-                  <button class={this.highlightOption("Location", "Tawi-Tawi")} onClick={(e) => this.onSelectChange("Location", "Tawi-Tawi", e)}>Tawi-Tawi</button>
-                  <button class={this.highlightOption("Location", "Dipolog")} onClick={(e) => this.onSelectChange("Location", "Dipolog", e)}>Dipolog</button>
-                  <button class={this.highlightOption("Location", "Davao")} onClick={(e) => this.onSelectChange("Location", "Davao", e)}>Davao</button>
-                  <button class={this.highlightOption("Location", "Zambaonga")} onClick={(e) => this.onSelectChange("Location", "Zambaonga", e)}>Zambaonga</button>
-                  <button class={this.highlightOption("Location", "Bacolod")} onClick={(e) => this.onSelectChange("Location", "Bacolod", e)}>Bacolod</button>
+                  {/* <button class={this.highlightOption("Location", "Tawi-Tawi")} onClick={(e) => this.onSelectChange("Location", "Tawi-Tawi", e)}>Tawi-Tawi</button>
+                  <button class={this.highlightOption("Location", "Dipolog")} onClick={(e) => this.onSelectChange("Location", "Dipolog", e)}>Dipolog</button> */}
+                  <button class={this.highlightOption("Location", "Davao City")} onClick={(e) => this.onSelectChange("Location", "Davao City", e)}>Davao</button>
+                  <button class={this.highlightOption("Location", "Zamboanga City")} onClick={(e) => this.onSelectChange("Location", "Zamboanga City", e)}>Zambaonga</button>
+                  {/* <button class={this.highlightOption("Location", "Bacolod")} onClick={(e) => this.onSelectChange("Location", "Bacolod", e)}>Bacolod</button>
                   <button class={this.highlightOption("Location", "Cebu")} onClick={(e) => this.onSelectChange("Location", "Cebu", e)}>Cebu</button>
-                  <button class={this.highlightOption("Location", "Ilo-Ilo")} onClick={(e) => this.onSelectChange("Location", "Ilo-Ilo", e)}>Ilo-Ilo</button>
+                  <button class={this.highlightOption("Location", "Ilo-Ilo")} onClick={(e) => this.onSelectChange("Location", "Ilo-Ilo", e)}>Ilo-Ilo</button> */}
                   <button class={this.highlightOption("Location", "")} onClick={(e) => this.onSelectChange("Location", "", e)}>No Preference</button>
             </div>
           )
@@ -236,8 +237,8 @@ class FindMe extends React.Component {
           return (
             <div class="findMe-wrapper col-8">
                 <h3><strong>What is your preferred sex in your doctors?</strong></h3>
-                <button class={this.highlightOption("Gender", "male")} onClick={(e) => this.onSelectChange("Gender", "male", e)}>Male</button>
-                <button class={this.highlightOption("Gender", "female")} onClick={(e) => this.onSelectChange("Gender", "female", e)}>Female</button>
+                <button class={this.highlightOption("Gender", "Male")} onClick={(e) => this.onSelectChange("Gender", "Male", e)}>Male</button>
+                <button class={this.highlightOption("Gender", "Female")} onClick={(e) => this.onSelectChange("Gender", "Female", e)}>Female</button>
                 <button class={this.highlightOption("Gender", "none")} onClick={(e) => this.onSelectChange("Gender", "none", e)}>No Preference</button>
             </div>
           )
@@ -370,12 +371,17 @@ class FindMe extends React.Component {
               onClick={() => {this.setState({progressIndex: 3}, () => {this.componentDidMount()})}}
               >Review Inputs</button>)
       case 3:
-        return(<button
+        return(<Link
             type="button"
             class="btn btn-primary"
             style={{width: '200px'}}
-            onClick={() => {console.log("SENDING")}}
-          >Find me a Doctor!</button>)
+            to="/doctors"
+            state={{
+              symptoms: this.state.inputedsymptoms,
+              preferences: this.state.preferences
+              // boolean: true
+            }}
+          >Find me a Doctor!</Link>)
       default:
         break;
     }
