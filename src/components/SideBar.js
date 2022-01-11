@@ -4,6 +4,7 @@ import complete from '../images/progress-toggle-complete.png'
 import logo from '../images/moon-full-moon-icon.png'
 import line from '../images/line.png'
 import React from 'react'
+import "../css/luna.css"
 
 class SideBar extends React.Component {
   progressChecker (progress) {
@@ -40,8 +41,10 @@ class SideBar extends React.Component {
                                       }  
                                   </div>
                                   <div className='col-9'>
-                                      <span style={{fontWeight: 'bolder'}}>{item.title}</span> <br/>
-                                      <span>{item.desc}</span>           
+                                      <div className="hover-effect cursor-pointer rounded-3 py-2 px-3" onClick={() => {this.props.changeProgress(index + 1)}}>
+                                        <span style={{fontWeight: 'bolder'}}>{item.title}</span> <br/>
+                                        <span>{item.desc}</span>
+                                      </div>       
                                   </div> 
                               </div>
                           </>

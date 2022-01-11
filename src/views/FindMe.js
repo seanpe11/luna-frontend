@@ -18,12 +18,25 @@ class FindMe extends React.Component {
         experience: 0,
         gender: "",
       },
-      sidedata: []
+      sidedata: [],
+      inputedsymptoms: []
     }
+    this.childChangeProgress = this.childChangeProgress.bind(this)
+    this.pushSymptom = this.pushSymptom.bind(this)
   }
 
   componentDidMount() {
     this.setState({sidedata: this.changeProgress()})
+  }
+
+  childChangeProgress(progress) {
+    this.setState({progressIndex: progress})
+    // this.componentDidMount()
+  }
+
+  pushSymptom(input) {
+    var newArray = this.state.inputedsymptoms.concat(input)
+    this.setState({inputedsymptoms: newArray})
   }
 
   changeProgress() {
@@ -114,17 +127,29 @@ class FindMe extends React.Component {
       case "Gender":
         valueSelected = (e.target.value)
         preferences.gender = valueSelected;
+        break
       default:
-        break;
+        break
     }    
     this.setState({preferences: preferences})
+  }
+
+  backHandler() {
+    if (this.state.progressIndex === 2){
+      if (this.state.preferenceIndex > 0){
+        this.setState({preferenceIndex: this.state.preferenceIndex - 1})
+      } 
+      else {
+        this.setState({progressIndex: 1}, () => {this.componentDidMount()})
+      }
+    }
   }
 
   preferenceState() {
     switch(this.state.preferenceIndex){
       case 0: // location
           return (
-            <div class="findMe-wrapper col-8">
+            <div class="findMe-wrapper">
                 <h3><strong>Where would you prefer your doctor's clinic to be in?</strong></h3>
                 <select class="findMe-select" multiple onChange={(e) => this.onSelectChange("Location", e)}>
                     <option class="findMe-option-thicc" value="Manila">Manila</option>
@@ -140,13 +165,6 @@ class FindMe extends React.Component {
                     <option class="findMe-option-thicc" value="Ilo-Ilo">Ilo-Ilo</option>
                     <option class="findMe-option-thicc" value="">No Preference</option>
                 </select>
-
-                <button 
-                type="button" 
-                class="btn btn-primary position-absolute" 
-                style={{bottom: '30px', right: '30px', width: '200px'}}
-                onClick={() => {this.setState({preferenceIndex: this.state.preferenceIndex + 1})}}
-              >Next</button>
             </div>
           )
       case 1: // age
@@ -159,13 +177,6 @@ class FindMe extends React.Component {
                     <option class="findMe-option-thicc" value="46">45 years or older</option>
                     <option class="findMe-option-thicc" value="-1">No Preference</option>
                 </select>
-
-                <button 
-                type="button" 
-                class="btn btn-primary position-absolute" 
-                style={{bottom: '30px', right: '30px', width: '200px'}}
-                onClick={() => {this.setState({preferenceIndex: this.state.preferenceIndex + 1})}}
-              >Next</button>
             </div>
           )
       case 2: // experience
@@ -178,13 +189,6 @@ class FindMe extends React.Component {
                     <option class="findMe-option-thicc" value="20">20 or more years of experience</option>
                     <option class="findMe-option-thicc" value="-1">No Preference</option>
                 </select>
-
-                <button 
-                type="button" 
-                class="btn btn-primary position-absolute" 
-                style={{bottom: '30px', right: '30px', width: '200px'}}
-                onClick={() => {this.setState({preferenceIndex: this.state.preferenceIndex + 1})}}
-              >Next</button>
             </div>
           )
       case 3: // price
@@ -198,13 +202,6 @@ class FindMe extends React.Component {
                     <option class="findMe-option-thicc" value="2001">More than PHP 2,000.00</option>
                     <option class="findMe-option-thicc" value="-1">No Preference</option>
                 </select>
-
-                <button 
-                type="button" 
-                class="btn btn-primary position-absolute" 
-                style={{bottom: '30px', right: '30px', width: '200px'}}
-                onClick={() => {this.setState({preferenceIndex: this.state.preferenceIndex + 1})}}
-              >Next</button>
             </div>
           )
       case 4: // gender
@@ -216,13 +213,6 @@ class FindMe extends React.Component {
                     <option class="findMe-option-thicc" value="female">Female</option>
                     <option class="findMe-option-thicc" value="none">No Preference</option>
                 </select>
-
-                <button 
-                type="button" 
-                class="btn btn-primary position-absolute" 
-                style={{bottom: '30px', right: '30px', width: '200px'}}
-                onClick={() => {this.setState({preferenceIndex: this.state.preferenceIndex + 1})}}
-              >Next</button>
             </div>
           )
 
@@ -239,28 +229,71 @@ class FindMe extends React.Component {
     return(
       <>
         <div className="row h-100 mx-0">
-          <SideBar sidedata={this.state.sidedata} />
+          <SideBar sidedata={this.state.sidedata} changeProgress={this.childChangeProgress}/>
           { this.state.progressIndex === 1 ?
             <>
-              <Symptoms />
-              <button 
-                type="button" 
-                class="btn btn-primary position-absolute" 
-                style={{bottom: '30px', right: '30px', width: '200px'}}
-                onClick={() => {this.setState({progressIndex: 2}, () => {this.componentDidMount()})}}
-              >Go to Preference</button>
+              <Symptoms pushSymptom={this.pushSymptom}/>
             </> :
             <>
-            <div className="col-6">
-              <div class="container">
-                <h3>Doctor Preferences</h3>
+            <div className="col-9 m-0 p-0 d-flex flex-column h-100">
+              <div className="mt-5 ms-5">
+                <h1>Doctor Preferences</h1>
                 <span>Fill out the form below to identify your preferences in doctors</span>
-                {this.preferenceState()}
+              </div>
+              <div class="mt-5 ms-5">
+                <div>
+                  {this.preferenceState()}
+                </div>
               </div>
             </div>
               
             </>
           }
+          <span className="position-absolute" style={{bottom: '30px', right: '30px', width: 'auto'}}> 
+            { this.state.progressIndex > 1 && 
+              <button
+                type="button"
+                class="btn btn-secondary me-3"
+                style={{width: '200px'}}
+                onClick={() => {this.backHandler()}}
+              >Back</button>
+            }
+            {this.state.progressIndex === 2 ?
+              <button 
+              type="button" 
+              class="btn btn-primary" 
+              style={{width: '200px'}}
+              onClick={() => {this.setState({preferenceIndex: this.state.preferenceIndex + 1})}}
+              >Next</button> : 
+              <button
+                type="button"
+                class="btn btn-primary"
+                style={{width: '200px'}}
+                onClick={() => {this.setState({progressIndex: 2}, () => {this.componentDidMount()})}}
+              >Go to Preference</button>
+            }
+          </span>
+
+          <div class="card position-absolute" style={{ bottom: '30px', left: '30px', width: '250px' }}>
+            <div class="card-body">
+              <h5 class="card-title">Symptoms</h5>
+              {
+                this.state.inputedsymptoms.length > 0 ? this.state.inputedsymptoms.map((item, index) => {
+                  return (
+                    <>
+                      <span style={{ fontWeight: 'bolder' }}>{item.symptom.Name}</span> <br />
+                      <span>{item.location}</span><br />
+                    </>
+                  )
+                }
+                ) :
+                  <p class="card-text text-secondary">
+                    No symptoms inputed
+                  </p>
+              }
+
+            </div>
+          </div>
         </div>
       </>
     )
