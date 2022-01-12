@@ -45,9 +45,7 @@ class FindMe extends React.Component {
   deleteSymptom(delId){
     console.log(delId)
     var newArray = this.state.inputtedsymptoms.filter(item => {
-      if (item.symptomid !== delId) {
-        return item
-      }
+      return item.symptomid !== delId
     })
     this.setState({inputtedsymptoms: newArray})
     console.log(newArray)
@@ -448,7 +446,7 @@ class FindMe extends React.Component {
                     return (
                       <>
                         <span style={{ fontWeight: 'bolder' }}>{item.symptom.Name}</span>
-                        <a className="text-decoration-none fw-bold text-danger cursor-pointer ms-2"  onClick={() => {this.deleteSymptom(item.symptomid)}}>X</a> <br />
+                        <span className="text-decoration-none fw-bold text-danger cursor-pointer ms-2"  onClick={() => {this.deleteSymptom(item.symptomid)}}>X</span> <br />
                         <span>{item.location}</span><br />
                       </>
                     )
