@@ -212,9 +212,9 @@ class FindMe extends React.Component {
             <div class="findMe-wrapper col-8">
                 <h3><strong>What is your preferred sex in your doctors?</strong></h3>
                 <select class="findMe-select" multiple onChange={(e) => this.onSelectChange("Gender", e)}>
-                    <option class="findMe-option-thicc" value="male">Male</option>
-                    <option class="findMe-option-thicc" value="female">Female</option>
-                    <option class="findMe-option-thicc" value="none">No Preference</option>
+                    <option class="findMe-option-thicc" value="Male">Male</option>
+                    <option class="findMe-option-thicc" value="Female">Female</option>
+                    <option class="findMe-option-thicc" value="None">No Preference</option>
                 </select>
 
                 <button 
