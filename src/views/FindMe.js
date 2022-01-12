@@ -237,6 +237,7 @@ class FindMe extends React.Component {
           return (
             <div class="findMe-wrapper col-8">
                 <h3><strong>What is your preferred sex in your doctors?</strong></h3>
+
                 <button class={this.highlightOption("Gender", "Male")} onClick={(e) => this.onSelectChange("Gender", "Male", e)}>Male</button>
                 <button class={this.highlightOption("Gender", "Female")} onClick={(e) => this.onSelectChange("Gender", "Female", e)}>Female</button>
                 <button class={this.highlightOption("Gender", "none")} onClick={(e) => this.onSelectChange("Gender", "none", e)}>No Preference</button>
