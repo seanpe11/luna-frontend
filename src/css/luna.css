@@ -1,18 +1,17 @@
-.link   {
+/* .link   {
     
 }
 
 
 .finding-button {
 
-}
+} */
 
 .findMe-select {
   min-height: 80px;
   border: none;
   min-width: 1000px;
   overflow: hidden;
-  flex-wrap: wrap;
 }
 .findMe-select::-moz-focus-inner {
   border: 0;
@@ -27,9 +26,23 @@
   padding: 30px 10px;
   text-align: center;
   margin-right: 40px;
+  margin-bottom: 20px;
   display: inline-flex;
   cursor: pointer;
   border:rgb(0, 0, 0) solid 1px;
   border-radius: 5px;
   color: rgb(0, 0, 0);
+  background-color: white;
+}
+
+.option-selected {
+  background-color: #4AFF93;
+}
+
+.hover-effect:hover {
+  background-color: #222c85;
+}
+
+.cursor-pointer:hover {
+  cursor: pointer;
 }
