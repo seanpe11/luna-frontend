@@ -19,8 +19,9 @@ class FindMe extends React.Component {
         experience: null,
         gender: null,
       },
+      thereIsSelection: false,
       sidedata: [],
-      inputedsymptoms: [],
+      inputtedsymptoms: [],
     }
     this.childChangeProgress = this.childChangeProgress.bind(this)
     this.pushSymptom = this.pushSymptom.bind(this)
@@ -36,19 +37,19 @@ class FindMe extends React.Component {
   }
 
   pushSymptom(input) {
-    var newArray = this.state.inputedsymptoms.concat(input)
-    this.setState({inputedsymptoms: newArray})
+    var newArray = this.state.inputtedsymptoms.concat(input)
+    this.setState({inputtedsymptoms: newArray})
     console.log(newArray)
   }
 
   deleteSymptom(delId){
     console.log(delId)
-    var newArray = this.state.inputedsymptoms.filter(item => {
+    var newArray = this.state.inputtedsymptoms.filter(item => {
       if (item.symptomid !== delId) {
         return item
       }
     })
-    this.setState({inputedsymptoms: newArray})
+    this.setState({inputtedsymptoms: newArray})
     console.log(newArray)
   }
 
@@ -177,10 +178,11 @@ class FindMe extends React.Component {
       default:
         break
     }    
-    this.setState({preferences: preferences})
+    this.setState({preferences: preferences, thereIsSelection: true})
   }
 
   backHandler() {
+    this.setState({thereIsSelection: true})
     if (this.state.progressIndex === 2){
       if (this.state.preferenceIndex > 0){
         this.setState({preferenceIndex: this.state.preferenceIndex - 1})
@@ -302,7 +304,7 @@ class FindMe extends React.Component {
               <div className="mt-5 rounded-3">
                 <h3>Symptom List</h3>
                 {
-                  this.state.inputedsymptoms.map((item, index) => {
+                  this.state.inputtedsymptoms.map((item, index) => {
                     return (
                       <>
                         <span style={{fontSize: '1.3rem'}}>{item.symptom.Name} - {item.frequency}</span> <br />
@@ -358,6 +360,22 @@ class FindMe extends React.Component {
   }
 
   nextButtonHandler() {
+    if (this.state.progressIndex === 1 && this.state.inputtedsymptoms.length === 0){
+      return <button 
+                  type="button" 
+                  class="btn btn-primary"
+                  style={{width: '200px'}}
+                  disabled
+                  >Go to Preference</button>
+    }
+    else if (this.state.progressIndex === 2 && !this.state.thereIsSelection ){
+      return <button 
+                  type="button" 
+                  class="btn btn-primary"
+                  style={{width: '200px'}}
+                  disabled>Next</button>
+    }
+
     switch (this.state.progressIndex){
       case 1:
         return(
@@ -374,14 +392,14 @@ class FindMe extends React.Component {
               type="button" 
               class="btn btn-primary" 
               style={{width: '200px'}}
-              onClick={() => {this.setState({preferenceIndex: this.state.preferenceIndex + 1})}}
+              onClick={() => {this.setState({preferenceIndex: this.state.preferenceIndex + 1, thereIsSelection: false})}}
               >Next</button>)
         else
             return(<button 
               type="button" 
               class="btn btn-primary" 
               style={{width: '200px'}}
-              onClick={() => {this.setState({progressIndex: 3}, () => {this.componentDidMount()})}}
+              onClick={() => {this.setState({progressIndex: 3, thereIsSelection: false}, () => {this.componentDidMount()})}}
               >Review Inputs</button>)
       case 3:
         return(<Link
@@ -390,7 +408,7 @@ class FindMe extends React.Component {
             style={{width: '200px'}}
             to="/doctors"
             state={{
-              symptoms: this.state.inputedsymptoms,
+              symptoms: this.state.inputtedsymptoms,
               preferences: this.state.preferences
               // boolean: true
             }}
@@ -417,7 +435,7 @@ class FindMe extends React.Component {
               >Back</button>
             }
 
-            {this.nextButtonHandler()}
+            { this.nextButtonHandler() }
           </span>
 
           {
@@ -426,7 +444,7 @@ class FindMe extends React.Component {
               <div class="card-body">
                 <h5 class="card-title">Symptoms</h5>
                 {
-                  this.state.inputedsymptoms.length > 0 ? this.state.inputedsymptoms.map((item, index) => {
+                  this.state.inputtedsymptoms.length > 0 ? this.state.inputtedsymptoms.map((item, index) => {
                     return (
                       <>
                         <span style={{ fontWeight: 'bolder' }}>{item.symptom.Name}</span>
@@ -437,7 +455,7 @@ class FindMe extends React.Component {
                   }
                   ) :
                     <p class="card-text text-secondary">
-                      No symptoms inputed
+                      No symptoms inputted
                     </p>
                 }
 
