@@ -67,9 +67,24 @@ function Doctors () {
       setSpecDoctors(res.specRecommendations)
       // setDiagnosis(res.diagnosis)
       setSpecialization(res.diagnosis[0].Specialisation[0].Name)
-    })}
+    })
+    }
     // eslint-disable-next-line
     , [])
+
+  function sortAlphabetically() {
+    var toSort = [...specDoctors]
+    toSort.sort((a, b) => a.name.localeCompare(b.name))
+    setSpecDoctors(toSort)
+    console.log(specDoctors)
+  }
+
+  function sortLocationally() {
+    var toSort = [...specDoctors]
+    toSort.sort((a, b) => a.clinic_address.localeCompare(b.clinic_address))
+    setSpecDoctors(toSort)
+    console.log(specDoctors)
+  }
   
   return (
     <>
@@ -130,8 +145,8 @@ function Doctors () {
                 <input type="text" class="form-control" placeholder="Search Doctors" aria-label="doctors"/>
               </div>
               <div className="col-6 d-flex justify-content-around align-items-center">
-                <button type="button" class="btn btn-outline-secondary" style={{maxHeight: '40px'}}>Location</button>
-                <button type="button" class="btn btn-outline-secondary" style={{maxHeight: '40px'}}>Alphabetically (A-Z)</button>
+                <button type="button" class="btn btn-outline-secondary" style={{maxHeight: '40px'}} onClick={sortLocationally}>Location</button>
+                <button type="button" class="btn btn-outline-secondary" style={{maxHeight: '40px'}} onClick={sortAlphabetically}>Alphabetically (A-Z)</button>
                 {/* <button type="button" class="btn btn-outline-secondary">Alphabetically (Z-A)</button> */}
                 <span className='' style={{fontWeight: 'bolder'}}>Sort Results by</span>
               </div>
