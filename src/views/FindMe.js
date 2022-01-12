@@ -38,6 +38,18 @@ class FindMe extends React.Component {
   pushSymptom(input) {
     var newArray = this.state.inputedsymptoms.concat(input)
     this.setState({inputedsymptoms: newArray})
+    console.log(newArray)
+  }
+
+  deleteSymptom(delId){
+    console.log(delId)
+    var newArray = this.state.inputedsymptoms.filter(item => {
+      if (item.symptomid !== delId) {
+        return item
+      }
+    })
+    this.setState({inputedsymptoms: newArray})
+    console.log(newArray)
   }
 
   changeProgress() {
@@ -417,7 +429,8 @@ class FindMe extends React.Component {
                   this.state.inputedsymptoms.length > 0 ? this.state.inputedsymptoms.map((item, index) => {
                     return (
                       <>
-                        <span style={{ fontWeight: 'bolder' }}>{item.symptom.Name}</span> <br />
+                        <span style={{ fontWeight: 'bolder' }}>{item.symptom.Name}</span>
+                        <a className="text-decoration-none fw-bold text-danger cursor-pointer ms-2"  onClick={() => {this.deleteSymptom(item.symptomid)}}>X</a> <br />
                         <span>{item.location}</span><br />
                       </>
                     )
