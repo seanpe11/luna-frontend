@@ -35,7 +35,7 @@ function queryDoctors (preferences, symptoms) {
   console.log(body)
 
   return axios.post(
-    'http://192.168.1.78:3030/findMe',
+    'https://luna-backend-thesis.herokuapp.com/findMe',
     {
       ...body
     }
