@@ -25,11 +25,11 @@ function queryDoctors (preferences, symptoms) {
     "querySymptoms": symptomString,
     "usersex": "Male",
     "useryearbirth": 1950,
-    "location": preferences.location,
-    "age": preferences.age,
-    "experience": preferences.experience,
-    "price": preferences.price,
-    "sex": preferences.gender
+    "location": preferences.location.val,
+    "age": preferences.age.val,
+    "experience": preferences.experience.val,
+    "price": preferences.price.val,
+    "sex": preferences.gender.val
   }
 
   console.log(body)
@@ -115,23 +115,23 @@ function Doctors () {
                     <tbody>
                       <tr>
                         <th>Doctor Location</th>
-                        <td>{preferences.location}</td>
+                        <td>{preferences.location.act}</td>
                       </tr>
                       <tr>
                         <th>Doctor Age</th>
-                        <td>{preferences.age}</td>
+                        <td>{preferences.age.act}</td>
                       </tr>
                       <tr>
                         <th>Doctor Experience</th>
-                        <td>{preferences.experience}</td>
+                        <td>{preferences.experience.act}</td>
                       </tr>
                       <tr>
                         <th>Consultation Fee</th>
-                        <td>{preferences.price}</td>
+                        <td>{preferences.price.act}</td>
                       </tr>
                       <tr>
                         <th>Doctor Sex</th>
-                        <td>{preferences.gender}</td>
+                        <td>{preferences.gender.act}</td>
                       </tr>
                     </tbody>
                   </table>

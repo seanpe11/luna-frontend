@@ -119,27 +119,27 @@ class FindMe extends React.Component {
   highlightOption(param, value){
     switch(param){
       case "Location":
-        if(this.state.preferences.location === value)
+        if(this.state.preferences.location && this.state.preferences.location.val === value)
           return 'findMe-option-thicc option-selected'
         else
           return 'findMe-option-thicc'
       case "Price":
-        if(this.state.preferences.price === value)
+        if(this.state.preferences.price && this.state.preferences.price.val === value)
           return 'findMe-option-thicc option-selected'
         else
           return 'findMe-option-thicc'
       case "Age":
-        if(this.state.preferences.age === parseInt(value))
+        if(this.state.preferences.age && this.state.preferences.age.val === value)
           return 'findMe-option-thicc option-selected'
         else
           return 'findMe-option-thicc'
       case "Experience":
-        if(this.state.preferences.experience === parseInt(value))
+        if(this.state.preferences.experience && this.state.preferences.experience.val === value)
           return 'findMe-option-thicc option-selected'
         else
           return 'findMe-option-thicc'
       case "Gender":
-        if(this.state.preferences.gender === value)
+        if(this.state.preferences.gender && this.state.preferences.gender.val === value)
           return 'findMe-option-thicc option-selected'
         else
           return 'findMe-option-thicc'
@@ -161,12 +161,14 @@ class FindMe extends React.Component {
         preferences.location = valueSelected;
         break;
       case "Age":
-        valueSelected = parseInt(value)
+        // valueSelected = parseInt(value)
+        valueSelected = value
         preferences.age = valueSelected;
         console.log(preferences.age)
         break;
       case "Experience":
-        valueSelected = parseInt(value)
+        // valueSelected = parseInt(value)
+        valueSelected = value
         preferences.experience = valueSelected;
         break;
       case "Gender":
@@ -199,38 +201,38 @@ class FindMe extends React.Component {
           return (
             <div class="findMe-wrapper">
                 <h3><strong>Where would you prefer your doctor's clinic to be in?</strong></h3>
-                  <button class={this.highlightOption("Location", "Manila City")} onClick={(e) => this.onSelectChange("Location", "Manila City", e)}>Manila</button>
+                  <button class={this.highlightOption("Location", "Manila City")} onClick={(e) => this.onSelectChange("Location", {val: "Manila City", act: "Manila City"}, e)}>Manila</button>
                   {/* <button class={this.highlightOption("Location", "Marikina")} onClick={(e) => this.onSelectChange("Location", "Marikina", e)}>Marikina</button> */}
                   {/* <button class={this.highlightOption("Location", "Taguig")} onClick={(e) => this.onSelectChange("Location", "Taguig", e)}>Taguig</button> */}
-                  <button class={this.highlightOption("Location", "Quezon City")} onClick={(e) => this.onSelectChange("Location", "Quezon City", e)}>Quezon City</button>
+                  <button class={this.highlightOption("Location", "Quezon City")} onClick={(e) => this.onSelectChange("Location", {val:"Quezon City", act:"Quezon City"}, e)}>Quezon City</button>
                   {/* <button class={this.highlightOption("Location", "Tawi-Tawi")} onClick={(e) => this.onSelectChange("Location", "Tawi-Tawi", e)}>Tawi-Tawi</button>
                   <button class={this.highlightOption("Location", "Dipolog")} onClick={(e) => this.onSelectChange("Location", "Dipolog", e)}>Dipolog</button> */}
-                  <button class={this.highlightOption("Location", "Davao City")} onClick={(e) => this.onSelectChange("Location", "Davao City", e)}>Davao</button>
-                  <button class={this.highlightOption("Location", "Zamboanga City")} onClick={(e) => this.onSelectChange("Location", "Zamboanga City", e)}>Zambaonga</button>
+                  <button class={this.highlightOption("Location", "Davao City")} onClick={(e) => this.onSelectChange("Location", {val:"Davao City", act:"Davao City"}, e)}>Davao</button>
+                  <button class={this.highlightOption("Location", "Zamboanga City")} onClick={(e) => this.onSelectChange("Location", {val:"Zamboanga City",act:"Zamboanga City"}, e)}>Zambaonga</button>
                   {/* <button class={this.highlightOption("Location", "Bacolod")} onClick={(e) => this.onSelectChange("Location", "Bacolod", e)}>Bacolod</button>
                   <button class={this.highlightOption("Location", "Cebu")} onClick={(e) => this.onSelectChange("Location", "Cebu", e)}>Cebu</button>
                   <button class={this.highlightOption("Location", "Ilo-Ilo")} onClick={(e) => this.onSelectChange("Location", "Ilo-Ilo", e)}>Ilo-Ilo</button> */}
-                  <button class={this.highlightOption("Location", "")} onClick={(e) => this.onSelectChange("Location", "", e)}>No Preference</button>
+                  <button class={this.highlightOption("Location", "")} onClick={(e) => this.onSelectChange("Location", {val:"",act:"No Preference"}, e)}>No Preference</button>
             </div>
           )
       case 1: // age
           return (
             <div class="findMe-wrapper col-8">
                 <h3><strong>What age group do you prefer for your Doctor’s Age?</strong></h3>
-                <button class={this.highlightOption("Age", "30")} onClick={(e) => this.onSelectChange("Age", "30", e)}>Younger than 30</button>
-                <button class={this.highlightOption("Age", "45")} onClick={(e) => this.onSelectChange("Age", "45", e)}>30 to 45 years old</button>
-                <button class={this.highlightOption("Age", "46")} onClick={(e) => this.onSelectChange("Age", "46", e)}>45 years or older</button>
-                <button class={this.highlightOption("Age", "-1")} onClick={(e) => this.onSelectChange("Age", "-1", e)}>No Preference</button>
+                <button class={this.highlightOption("Age", 30)} onClick={(e) => this.onSelectChange("Age", {val:30,act: "Younger than 30"}, e)}>Younger than 30</button>
+                <button class={this.highlightOption("Age", 45)} onClick={(e) => this.onSelectChange("Age", {val:45,act: "30 to 45 years old"}, e)}>30 to 45 years old</button>
+                <button class={this.highlightOption("Age", 46)} onClick={(e) => this.onSelectChange("Age", {val:46,act: "45 years or older"}, e)}>45 years or older</button>
+                <button class={this.highlightOption("Age", -1)} onClick={(e) => this.onSelectChange("Age", {val:-1,act: "No Preference"}, e)}>No Preference</button>
             </div>
           )
       case 2: // experience
           return (
             <div class="findMe-wrapper col-8">
                 <h3><strong>How much years of experience do you prefer with your doctors?</strong></h3>
-                <button class={this.highlightOption("Experience", "0")} onClick={(e) => this.onSelectChange("Experience", "0", e)}>Less than 10 years of experience</button>
-                <button class={this.highlightOption("Experience", "10")} onClick={(e) => this.onSelectChange("Experience", "10", e)}>10 or more years of experience</button>
-                <button class={this.highlightOption("Experience", "20")} onClick={(e) => this.onSelectChange("Experience", "20", e)}>20 or more years of experience</button>
-                <button class={this.highlightOption("Experience", "-1")} onClick={(e) => this.onSelectChange("Experience", "-1", e)}>No Preferece</button>
+                <button class={this.highlightOption("Experience", 0)} onClick={(e) => this.onSelectChange("Experience", {val:0, act: "Less than 10 years of experience"}, e)}>Less than 10 years of experience</button>
+                <button class={this.highlightOption("Experience", 10)} onClick={(e) => this.onSelectChange("Experience", {val:10, act: "10 of more years of experience"}, e)}>10 or more years of experience</button>
+                <button class={this.highlightOption("Experience", 20)} onClick={(e) => this.onSelectChange("Experience", {val:20, act: "20 or more years of experienc"}, e)}>20 or more years of experience</button>
+                <button class={this.highlightOption("Experience", -1)} onClick={(e) => this.onSelectChange("Experience", {val:-1, act: "No Preference"}, e)}>No Preferece</button>
 
             </div>
           )
@@ -238,11 +240,11 @@ class FindMe extends React.Component {
           return (
             <div class="findMe-wrapper col-8">
                 <h3><strong>How much can you budget for doctor consultations?</strong></h3>
-                <button class={this.highlightOption("Price", "100-500")} onClick={(e) => this.onSelectChange("Price", "100-500", e)}>Less than PHP 500.00</button>
-                <button class={this.highlightOption("Price", "501-1000")} onClick={(e) => this.onSelectChange("Price", "501-1000", e)}>PHP 500.00 to PHP 1,000.00</button>
-                <button class={this.highlightOption("Price", "1001-2000")} onClick={(e) => this.onSelectChange("Price", "1001-2000", e)}>PHP 1,000 to PHP 2,000.00</button>
-                <button class={this.highlightOption("Price", "2000+")} onClick={(e) => this.onSelectChange("Price", "2000+", e)}>More than PHP 2,000.00</button>
-                <button class={this.highlightOption("Price", "-1")} onClick={(e) => this.onSelectChange("Price", "-1", e)}>No preference</button>
+                <button class={this.highlightOption("Price", "100-500")} onClick={(e) => this.onSelectChange("Price", {val: "100-500", act: "Less than PHP 500.00"}, e)}>Less than PHP 500.00</button>
+                <button class={this.highlightOption("Price", "501-1000")} onClick={(e) => this.onSelectChange("Price", {val: "501-1000", act: "PHP 500.00 to PHP 1,000.00"}, e)}>PHP 500.00 to PHP 1,000.00</button>
+                <button class={this.highlightOption("Price", "1001-2000")} onClick={(e) => this.onSelectChange("Price", {val: "1001-2000", act: "PHP 1,000 to PHP 2,000.00"}, e)}>PHP 1,000 to PHP 2,000.00</button>
+                <button class={this.highlightOption("Price", "2000+")} onClick={(e) => this.onSelectChange("Price", {val: "2000+", act: "More than PHP 2,000.00"}, e)}>More than PHP 2,000.00</button>
+                <button class={this.highlightOption("Price", "-1")} onClick={(e) => this.onSelectChange("Price", {val: "-1", act: "No preference"}, e)}>No preference</button>
             </div>
           )
       case 4: // gender
@@ -250,9 +252,9 @@ class FindMe extends React.Component {
             <div class="findMe-wrapper col-8">
                 <h3><strong>What is your preferred sex in your doctors?</strong></h3>
 
-                <button class={this.highlightOption("Gender", "Male")} onClick={(e) => this.onSelectChange("Gender", "Male", e)}>Male</button>
-                <button class={this.highlightOption("Gender", "Female")} onClick={(e) => this.onSelectChange("Gender", "Female", e)}>Female</button>
-                <button class={this.highlightOption("Gender", "none")} onClick={(e) => this.onSelectChange("Gender", "none", e)}>No Preference</button>
+                <button class={this.highlightOption("Gender", "Male")} onClick={(e) => this.onSelectChange("Gender", {val: "Male", act: "Male"}, e)}>Male</button>
+                <button class={this.highlightOption("Gender", "Female")} onClick={(e) => this.onSelectChange("Gender", {val: "Female", act: "Female"}, e)}>Female</button>
+                <button class={this.highlightOption("Gender", "none")} onClick={(e) => this.onSelectChange("Gender", {val: "none", act: "No Preference"}, e)}>No Preference</button>
             </div>
           )
 
@@ -323,23 +325,23 @@ class FindMe extends React.Component {
                     <tbody>
                       <tr>
                         <th>Doctor Location</th>
-                        <td>{this.state.preferences.location}</td>
+                        <td>{this.state.preferences.location.act}</td>
                       </tr>
                       <tr>
                         <th>Doctor Age</th>
-                        <td>{this.state.preferences.age}</td>
+                        <td>{this.state.preferences.age.act}</td>
                       </tr>
                       <tr>
                         <th>Doctor Experience</th>
-                        <td>{this.state.preferences.experience}</td>
+                        <td>{this.state.preferences.experience.act}</td>
                       </tr>
                       <tr>
                         <th>Consultation Fee</th>
-                        <td>{this.state.preferences.price}</td>
+                        <td>{this.state.preferences.price.act}</td>
                       </tr>
                       <tr>
                         <th>Doctor Sex</th>
-                        <td>{this.state.preferences.gender}</td>
+                        <td>{this.state.preferences.gender.act}</td>
                       </tr>
                     </tbody>
                   </table>
