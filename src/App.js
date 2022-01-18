@@ -7,6 +7,7 @@ import Recommendations from './views/Recommendations.js';
 import Register from './views/Register';
 import Login from './views/Login';
 import Doctors from './views/Doctors';
+import NotFound from './views/NotFound';
 // import { useSelector } from 'react-redux'
 
 function RequiredAuth() {
@@ -34,6 +35,7 @@ function App() {
             <Route path="/findMe" element={<FindMe/>} />
             <Route path="/recommendations" element={<Recommendations/>} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
       <div className="d-flex d-lg-none h-100 align-items-center">

@@ -231,7 +231,7 @@ class FindMe extends React.Component {
                 <h3><strong>How much years of experience do you prefer with your doctors?</strong></h3>
                 <button class={this.highlightOption("Experience", 0)} onClick={(e) => this.onSelectChange("Experience", {val:0, act: "Less than 10 years of experience"}, e)}>Less than 10 years of experience</button>
                 <button class={this.highlightOption("Experience", 10)} onClick={(e) => this.onSelectChange("Experience", {val:10, act: "10 of more years of experience"}, e)}>10 or more years of experience</button>
-                <button class={this.highlightOption("Experience", 20)} onClick={(e) => this.onSelectChange("Experience", {val:20, act: "20 or more years of experienc"}, e)}>20 or more years of experience</button>
+                <button class={this.highlightOption("Experience", 20)} onClick={(e) => this.onSelectChange("Experience", {val:20, act: "20 or more years of experience"}, e)}>20 or more years of experience</button>
                 <button class={this.highlightOption("Experience", -1)} onClick={(e) => this.onSelectChange("Experience", {val:-1, act: "No Preference"}, e)}>No Preferece</button>
 
             </div>
@@ -242,7 +242,7 @@ class FindMe extends React.Component {
                 <h3><strong>How much can you budget for doctor consultations?</strong></h3>
                 <button class={this.highlightOption("Price", "100-500")} onClick={(e) => this.onSelectChange("Price", {val: "100-500", act: "Less than PHP 500.00"}, e)}>Less than PHP 500.00</button>
                 <button class={this.highlightOption("Price", "501-1000")} onClick={(e) => this.onSelectChange("Price", {val: "501-1000", act: "PHP 500.00 to PHP 1,000.00"}, e)}>PHP 500.00 to PHP 1,000.00</button>
-                <button class={this.highlightOption("Price", "1001-2000")} onClick={(e) => this.onSelectChange("Price", {val: "1001-2000", act: "PHP 1,000 to PHP 2,000.00"}, e)}>PHP 1,000 to PHP 2,000.00</button>
+                <button class={this.highlightOption("Price", "1001-2000")} onClick={(e) => this.onSelectChange("Price", {val: "1001-2000", act: "PHP 1,000.00 to PHP 2,000.00"}, e)}>PHP 1,000.00 to PHP 2,000.00</button>
                 <button class={this.highlightOption("Price", "2000+")} onClick={(e) => this.onSelectChange("Price", {val: "2000+", act: "More than PHP 2,000.00"}, e)}>More than PHP 2,000.00</button>
                 <button class={this.highlightOption("Price", "-1")} onClick={(e) => this.onSelectChange("Price", {val: "-1", act: "No preference"}, e)}>No preference</button>
             </div>
