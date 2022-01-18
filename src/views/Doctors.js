@@ -26,11 +26,11 @@ function queryDoctors (preferences, symptoms) {
     "querySymptoms": symptomString,
     "usersex": "Male",
     "useryearbirth": 1950,
-    "location": preferences.location,
-    "age": preferences.age,
-    "experience": preferences.experience,
-    "price": preferences.price,
-    "sex": preferences.gender
+    "location": preferences.location.val,
+    "age": preferences.age.val,
+    "experience": preferences.experience.val,
+    "price": preferences.price.val,
+    "sex": preferences.gender.val
   }
 
   console.log(body)
@@ -57,6 +57,7 @@ function Doctors () {
   var [specDoctors, setSpecDoctors] = useState([])
   // var [diagnosis, setDiagnosis] = useState([])
   var [specialization, setSpecialization] = useState("")
+  var [selectedSort, setSelectedSort] = useState("")
 
   useEffect(() => {
       queryDoctors(preferences, symptoms).then(res => {
@@ -79,6 +80,7 @@ function Doctors () {
     toSort.sort((a, b) => a.name.localeCompare(b.name))
     setSpecDoctors(toSort)
     console.log(specDoctors)
+    setSelectedSort("Alphabetically")
   }
 
   function sortLocationally() {
@@ -86,6 +88,14 @@ function Doctors () {
     toSort.sort((a, b) => a.clinic_address.localeCompare(b.clinic_address))
     setSpecDoctors(toSort)
     console.log(specDoctors)
+    setSelectedSort("Location")
+  }
+
+  function selectSort(value) {
+    if(selectedSort === value)
+      return 'btn btn-outline-secondary option-selected'
+    else
+      return 'btn btn-outline-secondary'
   }
   
   return (
@@ -118,23 +128,23 @@ function Doctors () {
                     <tbody>
                       <tr>
                         <th>Doctor Location</th>
-                        <td>{preferences.location}</td>
+                        <td>{preferences.location.act}</td>
                       </tr>
                       <tr>
                         <th>Doctor Age</th>
-                        <td>{preferences.age}</td>
+                        <td>{preferences.age.act}</td>
                       </tr>
                       <tr>
                         <th>Doctor Experience</th>
-                        <td>{preferences.experience}</td>
+                        <td>{preferences.experience.act}</td>
                       </tr>
                       <tr>
                         <th>Consultation Fee</th>
-                        <td>{preferences.price}</td>
+                        <td>{preferences.price.act}</td>
                       </tr>
                       <tr>
                         <th>Doctor Sex</th>
-                        <td>{preferences.gender}</td>
+                        <td>{preferences.gender.act}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -148,8 +158,8 @@ function Doctors () {
                 <input type="text" class="form-control" placeholder="Search Doctors" aria-label="doctors"/>
               </div>
               <div className="col-6 d-flex justify-content-around align-items-center">
-                <button type="button" class="btn btn-outline-secondary" style={{maxHeight: '40px'}} onClick={sortLocationally}>Location</button>
-                <button type="button" class="btn btn-outline-secondary" style={{maxHeight: '40px'}} onClick={sortAlphabetically}>Alphabetically (A-Z)</button>
+                <button type="button" class={selectSort("Location")} style={{maxHeight: '40px'}} onClick={sortLocationally}>Location</button>
+                <button type="button" class={selectSort("Alphabetically")} style={{maxHeight: '40px'}} onClick={sortAlphabetically}>Alphabetically (A-Z)</button>
                 {/* <button type="button" class="btn btn-outline-secondary">Alphabetically (Z-A)</button> */}
                 <span className='' style={{fontWeight: 'bolder'}}>Sort Results by</span>
               </div>

@@ -152,6 +152,13 @@ class Register extends React.Component {
                 <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" />
                 <label for="floatingInput">Email Address</label>
               </div>
+              <div class="form-floating mb-3">
+                <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                  <option value="1">Male</option>
+                  <option value="2">Female</option>
+                </select>
+                <label for="floatingSelect">Sex</label>
+              </div>
               <button type="button" class="btn btn-primary" onClick={() => {this.setState({progressIndex: 2}, () => this.componentDidMount())}}>NEXT</button>
             </div>
           </div>

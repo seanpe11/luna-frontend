@@ -21,6 +21,7 @@ class Symptoms extends React.Component {
       symptomselect: "",
       frequencyselect: "",
       moredetails: "",
+      symptomExistsError: false
     }
   }
 
@@ -33,11 +34,35 @@ class Symptoms extends React.Component {
       location: this.state.bodySelected
     }
 
-    this.props.pushSymptom(input)
+    if(this.props.inputtedsymptoms.length === 0)
+    {
+      this.props.pushSymptom(input)
+      this.setState({ hidden: true })
+      this.setState({symptomExistsError: false})
+
+    } else {
+      let exists = this.props.inputtedsymptoms.find(symptom => symptom.symptomid === input.symptomid)
+      if(exists === undefined)
+      {
+        this.props.pushSymptom(input)
+        this.setState({ hidden: true })
+        this.setState({symptomExistsError: false})
+      }
+      else
+      {
+        this.setState({symptomExistsError: true})
+      }
+    }
 
     // this.props.inputedsymptoms.push(input)
+  }
 
-    this.setState({ hidden: true })
+  addSymptomChecker(){
+    if(this.state.symptomselect === "" || this.state.frequencyselect === ""){
+      return (<button type="button" class="btn btn-primary" onClick={() => this.inputSymptom()} disabled>Add Symptom</button>)
+    } else {
+      return (<button type="button" class="btn btn-primary" onClick={() => this.inputSymptom()}>Add Symptom</button>)
+    }
   }
 
   bodyClicker(part) {
@@ -64,7 +89,14 @@ class Symptoms extends React.Component {
         break
     }
     this.setState({ hidden: false })
-    this.setState({ symptomList: (SymptomList.filter(item => item.pid === part))[0].symptoms }, () => console.log(this.state.symptomList))
+    this.setState({frequencyselect: "", symptomselect: ""})
+    this.setState({ symptomList: (SymptomList.filter(item => item.pid === part))[0].symptoms }, () => {
+      console.log(this.state.symptomList)
+      let symptomSelect = document.getElementById('symptomselect');
+      symptomSelect.value = "";
+      let frequencySelect = document.getElementById('frequencyselect');
+      frequencySelect.value = ""
+    })
     this.setState({ tiptext: "Now, select your symptoms from the list and add addditional information about your symptoms." })
   }
 
@@ -142,12 +174,19 @@ class Symptoms extends React.Component {
               <div class="card-body">
                 <div class="form-floating mb-4">
                   <select class="form-select" id="symptomselect" aria-label="Floating label select example" onChange={evt => this.setState({ symptomselect: evt.target.value })}>
-                    <option selected> </option>
                     {
                       this.state.symptomList.map((item, index) => {
-                        return (
-                          <option value={item.ID}>{item.Name}</option>
-                        )
+                        if (index === 0)
+                          return (
+                            <>
+                              <option value=""> </option>
+                              <option value={item.ID}>{item.Name}</option>
+                            </>
+                          )
+                        else
+                          return (
+                            <option value={item.ID}>{item.Name}</option>
+                          )
                       }
                       )
                     }
@@ -157,12 +196,19 @@ class Symptoms extends React.Component {
 
                 <div class="form-floating mb-4">
                   <select class="form-select" id="frequencyselect" aria-label="Floating label select example" onChange={evt => this.setState({ frequencyselect: evt.target.value })}>
-                    <option selected> </option>
                     {
                       this.state.frequencyList.map((item, index) => {
-                        return (
-                          <option value={item}>{item}</option>
-                        )
+                        if (index === 0)
+                          return (
+                            <>
+                              <option value=""> </option>
+                              <option value={item}>{item}</option>
+                            </>
+                          )
+                        else
+                          return (
+                            <option value={item}>{item}</option>
+                          )
                       }
                       )
                     }
@@ -175,7 +221,13 @@ class Symptoms extends React.Component {
                   <label for="floatingTextarea">More Details</label>
                 </div>
 
-                <button type="button" class="btn btn-primary" onClick={() => this.inputSymptom()}>Add Symptom</button>
+                {this.state.symptomExistsError && 
+                  <div class="alert alert-danger" role="alert">
+                    Symptom already inputted to the list. To make changes, remove the symptom from the list first!
+                  </div>
+                }
+
+                {this.addSymptomChecker()}
 
               </div>
             </div>
