@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
 import { useEffect } from 'react'
+import { Rings } from 'react-loader-spinner';
 // import DoctorList from "../data/doctors.json"
 
 
@@ -60,6 +61,7 @@ function Doctors () {
   var [selectedSort, setSelectedSort] = useState("")
 
   useEffect(() => {
+      setLoaded(false)
       queryDoctors(preferences, symptoms).then(res => {
         console.log(res)
         if(res.firstRecommendations.length > 0)
@@ -70,6 +72,7 @@ function Doctors () {
         setSpecDoctors(res.specRecommendations)
         // setDiagnosis(res.diagnosis)
         setSpecialization(res.diagnosis[0].Specialisation[0].Name)
+        setLoaded(true)
       })
   }
     // eslint-disable-next-line
@@ -102,6 +105,7 @@ function Doctors () {
     <>
       <Header />
 
+      
       <div className="row">
         <div className="col-3">
           <div className="container rounded-3 p-3 m-3 text-white" style={{backgroundColor: "#3B4AD0"}}>
@@ -151,6 +155,7 @@ function Doctors () {
                 }
           </div>
         </div>
+        {loaded ? 
         <div className="col-9">
           <div className="container mt-3">
             <div className="row">
@@ -219,7 +224,18 @@ function Doctors () {
               }
             </div>
           </div>
+        </div> 
+        :
+        <div className="col-9 d-flex flex-column justify-content-center align-items-center">
+            <h2>Finding you doctors...</h2>
+            <Rings
+              height='200'
+              width='200' 
+              color="blue"
+              ariaLabel="loading"
+            />
         </div>
+        }
       </div>
     </>
   )
