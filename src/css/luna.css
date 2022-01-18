@@ -36,7 +36,9 @@
 }
 
 .option-selected {
-  background-color: #4AFF93;
+  background-color: #3b4acf;
+  color: white;
+
 }
 
 .hover-effect:hover {
