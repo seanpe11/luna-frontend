@@ -11,6 +11,7 @@ class FindMe extends React.Component {
     super()
     this.state = {
       progressIndex: 1,
+      maxProgressIndex: 1,
       preferenceIndex: 0,
       preferences: {
         location: null,
@@ -32,8 +33,9 @@ class FindMe extends React.Component {
   }
 
   childChangeProgress(progress) {
-    this.setState({progressIndex: progress})
-    // this.componentDidMount()
+    if(progress <= this.state.maxProgressIndex){
+      this.setState({progressIndex: progress}, () => {this.componentDidMount()})
+    }
   }
 
   pushSymptom(input) {
@@ -383,7 +385,7 @@ class FindMe extends React.Component {
             type="button"
             class="btn btn-primary"
             style={{width: '200px'}}
-            onClick={() => {this.setState({progressIndex: 2}, () => {this.componentDidMount()})}}
+            onClick={() => {this.setState({progressIndex: 2, maxProgressIndex: 2}, () => {this.componentDidMount()})}}
           >Go to Preference</button>
           )
       case 2:   
@@ -399,7 +401,7 @@ class FindMe extends React.Component {
               type="button" 
               class="btn btn-primary" 
               style={{width: '200px'}}
-              onClick={() => {this.setState({progressIndex: 3, thereIsSelection: false}, () => {this.componentDidMount()})}}
+              onClick={() => {this.setState({progressIndex: 3, maxProgressIndex: 3, thereIsSelection: false}, () => {this.componentDidMount()})}}
               >Review Inputs</button>)
       case 3:
         return(<Link
@@ -448,7 +450,7 @@ class FindMe extends React.Component {
                     return (
                       <>
                         <span style={{ fontWeight: 'bolder' }}>{item.symptom.Name}</span>
-                        <span className="text-decoration-none fw-bold text-danger cursor-pointer ms-2"  onClick={() => {this.deleteSymptom(item.symptomid)}}>X</span> <br />
+                        <span className="text-decoration-none fw-bold text-danger cursor-pointer ms-2"  onClick={() => {this.deleteSymptom(item.symptomid)}}>🗑️</span> <br />
                         <span>{item.location}</span><br />
                       </>
                     )

@@ -89,13 +89,15 @@ class Symptoms extends React.Component {
         break
     }
     this.setState({ hidden: false })
-    this.setState({frequencyselect: "", symptomselect: ""})
+    this.setState({frequencyselect: "", symptomselect: "", moredetails: ""})
     this.setState({ symptomList: (SymptomList.filter(item => item.pid === part))[0].symptoms }, () => {
       console.log(this.state.symptomList)
       let symptomSelect = document.getElementById('symptomselect');
-      symptomSelect.value = "";
+      symptomSelect.value = ""
       let frequencySelect = document.getElementById('frequencyselect');
       frequencySelect.value = ""
+      let moreDetailsArea = document.getElementById('moredetails')
+      moreDetailsArea.value = ""
     })
     this.setState({ tiptext: "Now, select your symptoms from the list and add addditional information about your symptoms." })
   }
@@ -217,7 +219,7 @@ class Symptoms extends React.Component {
                 </div>
 
                 <div class="form-floating mb-4">
-                  <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style={{ height: "100px" }} onChange={evt => this.setState({ moredetails: evt.target.value })}> </textarea>
+                  <textarea id="moredetails" class="form-control" placeholder="Leave a comment here" style={{ height: "100px" }} onChange={evt => this.setState({ moredetails: evt.target.value })}> </textarea>
                   <label for="floatingTextarea">More Details</label>
                 </div>
 
