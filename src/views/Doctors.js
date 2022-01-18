@@ -8,6 +8,7 @@ import axios from 'axios'
 import { useEffect } from 'react'
 // import DoctorList from "../data/doctors.json"
 
+
 function queryDoctors (preferences, symptoms) {
   console.log(preferences, symptoms)
   var symptomString = ""
@@ -52,23 +53,24 @@ function Doctors () {
   const location = useLocation()
   const {preferences, symptoms} = location.state
   var [doctors, setDoctors] = useState([])
+  var [loaded, setLoaded] = useState([]) 
   var [specDoctors, setSpecDoctors] = useState([])
   // var [diagnosis, setDiagnosis] = useState([])
   var [specialization, setSpecialization] = useState("")
 
   useEffect(() => {
-    queryDoctors(preferences, symptoms).then(res => {
-      console.log(res)
-      if(res.firstRecommendations.length > 0)
-        setDoctors(res.firstRecommendations)
-      else
-        setDoctors(res.secondRecommendations)
-      console.log('yo')
-      setSpecDoctors(res.specRecommendations)
-      // setDiagnosis(res.diagnosis)
-      setSpecialization(res.diagnosis[0].Specialisation[0].Name)
-    })
-    }
+      queryDoctors(preferences, symptoms).then(res => {
+        console.log(res)
+        if(res.firstRecommendations.length > 0)
+          setDoctors(res.firstRecommendations)
+        else
+          setDoctors(res.secondRecommendations)
+        console.log('yo')
+        setSpecDoctors(res.specRecommendations)
+        // setDiagnosis(res.diagnosis)
+        setSpecialization(res.diagnosis[0].Specialisation[0].Name)
+      })
+  }
     // eslint-disable-next-line
     , [])
 
@@ -89,6 +91,7 @@ function Doctors () {
   return (
     <>
       <Header />
+
       <div className="row">
         <div className="col-3">
           <div className="container rounded-3 p-3 m-3 text-white" style={{backgroundColor: "#3B4AD0"}}>
