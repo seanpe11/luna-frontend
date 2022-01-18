@@ -271,7 +271,7 @@ class FindMe extends React.Component {
       case 1:
         return (
           <>
-            <Symptoms pushSymptom={this.pushSymptom}/>
+            <Symptoms pushSymptom={this.pushSymptom} inputtedsymptoms={this.state.inputtedsymptoms}/>
           </>
         )
       case 2:
