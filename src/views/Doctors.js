@@ -80,7 +80,13 @@ function Doctors () {
 
   function sortAlphabetically() {
     var toSort = [...specDoctors]
-    toSort.sort((a, b) => a.name.localeCompare(b.name))
+    toSort.sort((a, b) => {
+        var aLast = a.name.split(' ')
+        var bLast = b.name.split(' ')
+        aLast = aLast[aLast.length - 1]
+        bLast = bLast[bLast.length - 1]
+        return aLast.localeCompare(bLast)
+    })
     setSpecDoctors(toSort)
     console.log(specDoctors)
     setSelectedSort("Alphabetically")
