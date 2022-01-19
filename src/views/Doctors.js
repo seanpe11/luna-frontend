@@ -11,6 +11,9 @@ import { Rings } from 'react-loader-spinner';
 
 
 function queryDoctors (preferences, symptoms) {
+
+  const {sex, birthDate} = JSON.parse(sessionStorage.getItem("userData"))
+
   console.log(preferences, symptoms)
   var symptomString = ""
   var symptomCount = 0
@@ -25,8 +28,8 @@ function queryDoctors (preferences, symptoms) {
   console.log(preferences)
   let body = {
     "querySymptoms": symptomString,
-    "usersex": "Male",
-    "useryearbirth": 1950,
+    "usersex": sex,
+    "useryearbirth": new Date(birthDate).getFullYear(),
     "location": preferences.location.val,
     "age": preferences.age.val,
     "experience": preferences.experience.val,
