@@ -78,16 +78,17 @@ function Doctors () {
     // eslint-disable-next-line
     , [])
 
+  function sortLastname(a, b) {
+    var aLast = a.name.split(' ')
+    var bLast = b.name.split(' ')
+    aLast = aLast[aLast.length - 1]
+    bLast = bLast[bLast.length - 1]
+    return aLast.localeCompare(bLast)
+  }
+
   function sortAlphabetically() {
-    var toSort = [...specDoctors]
-    toSort.sort((a, b) => {
-        var aLast = a.name.split(' ')
-        var bLast = b.name.split(' ')
-        aLast = aLast[aLast.length - 1]
-        bLast = bLast[bLast.length - 1]
-        return aLast.localeCompare(bLast)
-    })
-    setSpecDoctors(toSort)
+    setDoctors([...doctors].sort(sortLastname))
+    setSpecDoctors([...specDoctors].sort(sortLastname))
     console.log(specDoctors)
     setSelectedSort("Alphabetically")
   }
@@ -193,7 +194,7 @@ function Doctors () {
                         <div className="col-1">
                           <img src={doctor.sex === "Male" ? DoctorMale : DoctorFemale} alt="doctor_pic" style={{width: '50px'}}/>
                         </div>
-                        <div className='col-4 ps-4'><span className="d-flex h-100 align-items-center">{doctor.name}</span></div>
+                        <div className='col-4 ps-4'><span className="d-flex h-100 align-items-center">Dr. {doctor.name}</span></div>
                         <div className='col-3'><span className="d-flex h-100 align-items-center">{doctor.specialization}</span></div>
                         <div className='col-4'><span className="d-flex h-100 align-items-center float-end">{doctor.clinic_address}</span></div>
                       </div>
@@ -220,7 +221,7 @@ function Doctors () {
                         <div className="col-1">
                           <img src={doctor.sex === "Male" ? DoctorMale : DoctorFemale} alt="doctor_pic" style={{width: '50px'}}/>
                         </div>
-                        <div className='col-4 ps-4'><span className="d-flex h-100 align-items-center">{doctor.name}</span></div>
+                        <div className='col-4 ps-4'><span className="d-flex h-100 align-items-center">Dr. {doctor.name}</span></div>
                         <div className='col-3'><span className="d-flex h-100 align-items-center">{doctor.specialization}</span></div>
                         <div className='col-4'><span className="d-flex h-100 align-items-center float-end">{doctor.clinic_address}</span></div>
                       </div>
