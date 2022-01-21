@@ -14,7 +14,7 @@ function Login () {
   function queryUser (email, password) {
     console.log(email, password)
     return axios.post(
-      'http://192.168.1.78:3030/login',
+      'https://luna-backend-thesis.herokuapp.com/login',
       {
         email, password
       }
