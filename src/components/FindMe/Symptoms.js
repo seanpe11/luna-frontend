@@ -17,7 +17,7 @@ class Symptoms extends React.Component {
       symptomList: [],
       frequencyList: ['Once a Day', 'Once a Week', 'Twice a Week', 'Consistent'],
       hidden: true,
-      tiptext: "First, click on the body part in the diagram where your symptoms are present; or select more general symptoms in the button below",
+      tiptext: <>First, <b class='text-primary'>click on the body</b> part in the diagram where your symptoms are present; or select more <b class='text-primary'>general symptoms in the button below</b></>,
       symptomselect: "",
       frequencyselect: "",
       moredetails: "",
@@ -47,6 +47,7 @@ class Symptoms extends React.Component {
         this.props.pushSymptom(input)
         this.setState({ hidden: true })
         this.setState({symptomExistsError: false})
+        this.setState({ tiptext: <>First, <b class='text-primary'>click on the body</b> part in the diagram where your symptoms are present; or select more <b class='text-primary'>general symptoms in the button below</b></> })
       }
       else
       {
@@ -99,7 +100,7 @@ class Symptoms extends React.Component {
       let moreDetailsArea = document.getElementById('moredetails')
       moreDetailsArea.value = ""
     })
-    this.setState({ tiptext: "Now, select your symptoms from the list and add addditional information about your symptoms." })
+    this.setState({ tiptext: <>Now, select your symptoms from the list and add addditional information about your symptoms.</> })
   }
 
   render() {
@@ -166,7 +167,7 @@ class Symptoms extends React.Component {
             <p>{this.state.tiptext}</p>
           </div>
 
-          <button type="button" class="btn btn-outline-secondary" onClick={() => { this.bodyClicker("general") }}>Skin, Joints and General Symptoms</button>
+          <button type="button" class="btn btn-primary" onClick={() => { this.bodyClicker("general") }}>Skin, Joints and General Symptoms</button>
 
           <div class={this.state.hidden ? "card d-none" : "card mt-4 me-5"}>
             <div class="card-body">
