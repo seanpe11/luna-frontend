@@ -3,6 +3,8 @@ import logo from '../images/moon-full-moon-icon.png'
 import dp from '../images/profile_pic.png'
 
 function Header({active}) {
+  const {firstName, lastName} = JSON.parse(sessionStorage.getItem("userData"))
+
     return <nav class="navbar navbar-expand-lg navbar-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -33,7 +35,7 @@ function Header({active}) {
               </li>
             </ul>
             <a class="float-end me-3 nav-link text-black" href="/">
-              Jane Doe
+              {firstName} {lastName}
               <img className='ms-3 rounded-pill' src={dp} alt="profile pic" style={{width: '50px'}}/>
             </a>
         </div>

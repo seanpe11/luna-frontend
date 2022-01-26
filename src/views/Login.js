@@ -23,6 +23,7 @@ function Login () {
       setStatus(res.data.status)
       if(res.data.status === "ok"){
         sessionStorage.setItem("auth", 1)
+        sessionStorage.setItem("userData", JSON.stringify(res.data.userData))
         window.location.replace('/')
       }
     }).catch(e => {

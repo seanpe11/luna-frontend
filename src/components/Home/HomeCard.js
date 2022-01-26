@@ -2,6 +2,9 @@ import "../../css/Home.css";
 import dp from "../../images/profile_pic.png";
 
 function HomeCard() {
+
+  const {firstName, lastName} = JSON.parse(sessionStorage.getItem("userData"))
+
   return (
     <div class="home-card text-white mb-3">
       <div class="home-row g-0 d-flex h-100 align-items-center">
@@ -16,7 +19,7 @@ function HomeCard() {
         <div class="ms-5">
           <div class="card-body" style={{ top: "20%" }}>
             <h5 class="wc card-title ">Welcome,</h5>
-            <p class="name card-text ">Jane Doe</p>
+            <p class="name card-text ">{firstName} {lastName}</p>
           </div>
         </div>
       </div>
