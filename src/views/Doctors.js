@@ -7,8 +7,11 @@ import { useState } from 'react'
 import axios from 'axios'
 import { useEffect } from 'react'
 import { Rings } from 'react-loader-spinner';
+import { Modal, ModalBody } from "react-bootstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope, faPhoneAlt } from '@fortawesome/free-solid-svg-icons'
+import "../css/luna.css"
 // import DoctorList from "../data/doctors.json"
-
 
 function queryDoctors (preferences, symptoms) {
 
@@ -51,7 +54,6 @@ function queryDoctors (preferences, symptoms) {
   })
 }
 
-
 function Doctors () {
 
   const location = useLocation()
@@ -62,16 +64,26 @@ function Doctors () {
   // var [diagnosis, setDiagnosis] = useState([])
   var [specialization, setSpecialization] = useState("")
   var [selectedSort, setSelectedSort] = useState("")
+  var [modalShow, setModalShow] = useState(false); 
+  var [activeDoctor, setActiveDoctor] = useState({});
 
   useEffect(() => {
       setLoaded(false)
+      var firstRecom, secondRecom = []
       queryDoctors(preferences, symptoms).then(res => {
         console.log(res)
+        
         if(res.firstRecommendations.length > 0)
-          setDoctors(res.firstRecommendations)
-        else
-          setDoctors(res.secondRecommendations)
-        console.log('yo')
+        {
+          console.log("first")
+          firstRecom = res.firstRecommendations.map(e => ({...e, isFirst: true}))
+        }
+        if(res.secondRecommendations.length > 0)
+        {
+          secondRecom = res.secondRecommendations.map(e => ({...e, isFirst: false}))
+          
+        }
+        setDoctors(doctors.concat(firstRecom, secondRecom))
         setSpecDoctors(res.specRecommendations)
         // setDiagnosis(res.diagnosis)
         setSpecialization(res.diagnosis[0].Specialisation[0].Name)
@@ -80,6 +92,12 @@ function Doctors () {
   }
     // eslint-disable-next-line
     , [])
+
+  function showDoctorInfo (props) {
+    console.log(props)
+    setActiveDoctor(props)
+    setModalShow(true)
+  }
 
   function sortLastname(a, b) {
     var aLast = a.name.split(' ')
@@ -115,54 +133,98 @@ function Doctors () {
     <>
       <Header />
 
+      {/* // SAMPLE DOCTOR
+      // clinic_address: "Manila City"
+      // clinic_location: "Manila Doctors Hospital"
+      // med_school: "UERM"
+      // name: "Giovanni Bocanegra"
+      // price_range: "100-500"
+      // sex: "Male"
+      // specialization: "Cardiology" */}
+      <Modal centered show={modalShow} onHide={() => setModalShow(false)}>
+        <ModalBody>
+          <div className="row">
+            <div className="col-4">
+              <img src={activeDoctor.sex === "Male" ? DoctorMale : DoctorFemale} alt="doctor_pic" style={{width: '100px'}}/>
+            </div>
+            <div className="col-8">
+              <div className="d-flex row">
+                <h3>{activeDoctor.name}</h3>
+                <span>{activeDoctor.specialization}</span>
+              </div>
+            </div>
+          </div>
+          <div className="mt-3 row">
+            <span className="fw-bold">Doctor Information</span>
+            <span><span className="fw-bold">Med School:</span> {activeDoctor.med_school}</span>
+            <span><span className="fw-bold">Consultation Fee Range:</span> {activeDoctor.price_range}</span>
+          </div>
+          <div className="mt-3 row">
+            <span className="fw-bold">Clinic Location</span>
+            <span>{activeDoctor.clinic_location}, {activeDoctor.clinic_address}</span>
+          </div>
+          <div className="mt-3 row">
+            <span className="fw-bold">Contact Information</span>
+            <span><FontAwesomeIcon icon={faPhoneAlt} /> +63-123-4567</span>
+            <span><FontAwesomeIcon icon={faEnvelope} /> email@gmail.com</span>
+          </div>
+        </ModalBody>
+      </Modal>
       
       <div className="row">
         <div className="col-3">
-          <div className="container rounded-3 p-3 m-3 text-white" style={{backgroundColor: "#3B4AD0"}}>
-            <h5>Symptoms</h5>
-            {specialization !== "" && 
-            <div>
-              Based on your Symptoms, the best specialization to contact is: <span className="fw-bold">{specialization}</span>
-            </div>}
-            {symptoms.map((symptom) => {
-              return (
-                <>
-                  <div className='mt-3 fw-bold'>{symptom.symptom.Name}</div>
-                  <div>{symptom.location}</div>
-                </>
-              )
-            })}
-          </div>
-          <div className="container rounded-3 p-3 m-3 text-white" style={{backgroundColor: "#3B4AD0"}}>
-            <h5>Preferences</h5>
-            {
-                  <table class="table table-borderless text-white">
-                    <col style={{width: "30%"}} />
-	                  <col style={{width: "70%"}}  />
-                    <tbody>
-                      <tr>
-                        <th>Doctor Location</th>
-                        <td>{preferences.location.act}</td>
-                      </tr>
-                      <tr>
-                        <th>Doctor Age</th>
-                        <td>{preferences.age.act}</td>
-                      </tr>
-                      <tr>
-                        <th>Doctor Experience</th>
-                        <td>{preferences.experience.act}</td>
-                      </tr>
-                      <tr>
-                        <th>Consultation Fee</th>
-                        <td>{preferences.price.act}</td>
-                      </tr>
-                      <tr>
-                        <th>Doctor Sex</th>
-                        <td>{preferences.gender.act}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                }
+          <div className="sticky-top">
+            <div className="container rounded-3 p-3 m-3 text-white" style={{backgroundColor: "#3B4AD0"}}>
+              <h5>Symptoms</h5>
+              {specialization !== "" &&
+              <div>
+                Based on your Symptoms, the best specialization to contact is: <span className="fw-bold">{specialization}</span>
+              </div>}
+              {symptoms.map((symptom) => {
+                return (
+                  <>
+                    <div className='mt-3 fw-bold'>{symptom.symptom.Name}</div>
+                    <div>{symptom.location}</div>
+                  </>
+                )
+              })}
+            </div>
+            <div className="container rounded-3 p-3 m-3 text-white" style={{backgroundColor: "#3B4AD0"}}>
+              <h5>Preferences</h5>
+              {
+                    <table class="table table-borderless text-white">
+                      <col style={{width: "30%"}} />
+            	                  <col style={{width: "70%"}}  />
+                      <tbody>
+                        <tr>
+                          <th>Doctor Location</th>
+                          <td>{preferences.location.act}</td>
+                        </tr>
+                        <tr>
+                          <th>Doctor Age</th>
+                          <td>{preferences.age.act}</td>
+                        </tr>
+                        <tr>
+                          <th>Doctor Experience</th>
+                          <td>{preferences.experience.act}</td>
+                        </tr>
+                        <tr>
+                          <th>Consultation Fee</th>
+                          <td>{preferences.price.act}</td>
+                        </tr>
+                        <tr>
+                          <th>Doctor Sex</th>
+                          <td>{preferences.gender.act}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  }
+            </div>
+            <div className="container">
+              <h5>Legend</h5>
+              <span class="badge bg-primary">1st</span> - All preferences match <br/>
+              <span class="badge bg-primary">2nd</span> - Only specialization and location matched
+            </div>
           </div>
         </div>
         {loaded ? 
@@ -180,7 +242,7 @@ function Doctors () {
               </div>
             </div>
             <div id="doctor-container" className='mt-4'>
-              <h3 className='mb-3'>Doctors based on your preferences</h3>
+              <h3 className='mb-3'>Closest Match to your Preferences</h3>
               {
                 // SAMPLE DOCTOR
                 // clinic_address: "Manila City"
@@ -193,11 +255,11 @@ function Doctors () {
                 doctors.map((doctor) => {
                   return(
                     <>
-                      <div className="row mb-2">
+                      <div className="row mb-2 cursor-pointer hover-effect-grey rounded-3" onClick={() => showDoctorInfo(doctor)}>
                         <div className="col-1">
                           <img src={doctor.sex === "Male" ? DoctorMale : DoctorFemale} alt="doctor_pic" style={{width: '50px'}}/>
                         </div>
-                        <div className='col-4 ps-4'><span className="d-flex h-100 align-items-center">Dr. {doctor.name}</span></div>
+                        <div className='col-4 ps-4'><span className="d-flex h-100 align-items-center">Dr. {doctor.name}<span class="badge bg-primary ms-2">{doctor.isFirst ? "1st" : "2nd"}</span> </span></div>
                         <div className='col-3'><span className="d-flex h-100 align-items-center">{doctor.specialization}</span></div>
                         <div className='col-4'><span className="d-flex h-100 align-items-center float-end">{doctor.clinic_address}</span></div>
                       </div>
@@ -220,7 +282,7 @@ function Doctors () {
                 specDoctors.map((doctor) => {
                   return(
                     <>
-                      <div className="row mb-2">
+                      <div className="row mb-2 cursor-pointer hover-effect-grey rounded-3" onClick={() => showDoctorInfo(doctor)}>
                         <div className="col-1">
                           <img src={doctor.sex === "Male" ? DoctorMale : DoctorFemale} alt="doctor_pic" style={{width: '50px'}}/>
                         </div>
