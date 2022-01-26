@@ -1,5 +1,5 @@
 import HomeCard from "./HomeCard";
-import FactCard from "./FactCard";
+import FindMeCard from "./FindMeCard";
 import HistoryCard from "./HistoryCard";
 
 function HomeContent() {
@@ -8,7 +8,7 @@ function HomeContent() {
       <HomeCard />
       <div className="row m-0 p-0">
         <HistoryCard />
-        <FactCard />
+        <FindMeCard />
       </div>
     </div>
   );
