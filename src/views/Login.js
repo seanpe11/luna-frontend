@@ -9,10 +9,12 @@ function Login () {
   var [email, setEmail] = useState("")
   var [password, setPassword] = useState("")
   var [status, setStatus] = useState("")
+  var [loading, setLoading] = useState(false)
   // const dispatch = useDispatch()
 
   function queryUser (email, password) {
     console.log(email, password)
+    setLoading(true)
     return axios.post(
       'https://luna-backend-thesis.herokuapp.com/login',
       {
@@ -21,11 +23,12 @@ function Login () {
     ).then((res) => {
       console.log(res.data)
       setStatus(res.data.status)
-      if(res.data.status === "ok"){
+      if(res.data.status === "ok") {
         sessionStorage.setItem("auth", 1)
         sessionStorage.setItem("userData", JSON.stringify(res.data.userData))
         window.location.replace('/')
       }
+      setLoading(false)
     }).catch(e => {
       console.log('Error lol')
       console.log(e)
@@ -53,7 +56,15 @@ function Login () {
 
           <a style={{textDecoration: 'none', color: 'black'}} href='google.com'>Forget Password</a>
 
-          <button type="button" class="btn btn-primary mb-3" onClick={()=>{queryUser(email, password)}}>Sign In</button>
+          <button type="button" class="btn btn-primary mb-3" onClick={()=>{queryUser(email, password)}}>
+            { loading ?
+              <div class="spinner-border" role="status">
+                <span class="visually-hidden">Loading...</span>
+              </div>
+              :
+              <span>Sign In</span>
+            }
+          </button>
           <button type="button" class="btn btn-outline-secondary mb-3">Sign in with Google</button>
 
           <div className="d-flex">
