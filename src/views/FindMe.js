@@ -200,46 +200,16 @@ class FindMe extends React.Component {
   preferenceState() {
     switch(this.state.preferenceIndex){
       case 0: // location
+          let locations = ["Davao City", "Manila City", "Quezon City", "Zamboanga City"]
+          locations.sort( (a,b) => a.localeCompare(b, "fr", {ignorePunctuation: true} ))
+          let locationButtons = locations.map((item, index) => {
+            return <button key = { index } class={this.highlightOption("Location", item)} onClick={(e) => this.onSelectChange("Location", {val: item, act: item}, e)}>{item}</button>
+          })
+          console.log(locationButtons)
           return (
             <div class="findMe-wrapper">
                 <h3><strong>Where would you prefer your doctor's clinic to be in?</strong></h3>
-                  <button class={this.highlightOption("Location", "Manila City")} onClick={(e) => this.onSelectChange("Location", {val: "Manila City", act: "Manila City"}, e)}>Manila</button>
-                  {/* <button class={this.highlightOption("Location", "Marikina")} onClick={(e) => this.onSelectChange("Location", "Marikina", e)}>Marikina</button> */}
-                  {/* <button class={this.highlightOption("Location", "Taguig")} onClick={(e) => this.onSelectChange("Location", "Taguig", e)}>Taguig</button> */}
-                  <button class={this.highlightOption("Location", "Quezon City")} onClick={(e) => this.onSelectChange("Location", {val:"Quezon City", act:"Quezon City"}, e)}>Quezon City</button>
-                  {/* <button class={this.highlightOption("Location", "Tawi-Tawi")} onClick={(e) => this.onSelectChange("Location", "Tawi-Tawi", e)}>Tawi-Tawi</button>
-                  <button class={this.highlightOption("Location", "Dipolog")} onClick={(e) => this.onSelectChange("Location", "Dipolog", e)}>Dipolog</button> */}
-                  <button class={this.highlightOption("Location", "Davao City")} onClick={(e) => this.onSelectChange("Location", {val:"Davao City", act:"Davao City"}, e)}>Davao</button>
-                  <button class={this.highlightOption("Location", "Zamboanga City")} onClick={(e) => this.onSelectChange("Location", {val:"Zamboanga City",act:"Zamboanga City"}, e)}>Zambaonga</button>
-                  {/* <button class={this.highlightOption("Location", "Bacolod")} onClick={(e) => this.onSelectChange("Location", "Bacolod", e)}>Bacolod</button>
-                  <button cest match"
-Enter
-Jolo
-￼
-made some changes na to doctors page
-￼
-Enter
-Write to thesis
-
-
-Aa
-￼
-￼
-￼
-thesis
-Customize chat
-Change chat name
-Change photo
-Change theme
-￼
-Change emoji
-Edit nicknames
-Search in conversation
-Chat members
-Jolo Cansana
-Group creator
-lass={this.highlightOption("Location", "Cebu")} onClick={(e) => this.onSelectChange("Location", "Cebu", e)}>Cebu</button>
-                  <button class={this.highlightOption("Location", "Ilo-Ilo")} onClick={(e) => this.onSelectChange("Location", "Ilo-Ilo", e)}>Ilo-Ilo</button> */}
+                  { locationButtons }
                   <button class={this.highlightOption("Location", "")} onClick={(e) => this.onSelectChange("Location", {val:"",act:"No Preference"}, e)}>No Preference</button>
             </div>
           )
