@@ -232,7 +232,7 @@ class FindMe extends React.Component {
               
           })
           return (
-            <div class="findMe-wrapper col-8">
+            <div class="findMe-wrapper">
                 <h3><strong>What age group do you prefer for your Doctor’s Age?</strong></h3>
                 { ageButtons }
             </div>
@@ -249,7 +249,7 @@ class FindMe extends React.Component {
               </button>
           })
           return (
-            <div class="findMe-wrapper col-8">
+            <div class="findMe-wrapper">
                 <h3><strong>How much years of experience do you prefer with your doctors?</strong></h3>
                 { experienceButtons }
             </div>
@@ -266,7 +266,7 @@ class FindMe extends React.Component {
               </button>
           })
           return (
-            <div class="findMe-wrapper col-8">
+            <div class="findMe-wrapper">
                 <h3><strong>How much can you budget for doctor consultations?</strong></h3>
                 { priceButtons }
             </div>
@@ -283,7 +283,7 @@ class FindMe extends React.Component {
               </button>
           })
           return (
-            <div class="findMe-wrapper col-8">
+            <div class="findMe-wrapper">
                 <h3><strong>What is your preferred sex in your doctors?</strong></h3>
                 { genderButtons }
             </div>
@@ -308,7 +308,7 @@ class FindMe extends React.Component {
       case 2:
         return (
           <>
-            <div className="col-9 m-0 p-0 d-flex flex-column">
+            <div className="m-0 p-0 d-flex flex-column">
               <div className="mt-5 ms-5">
                 <h1>Doctor Preferences</h1>
                 <span>Fill out the form below to identify your preferences in doctors</span>
@@ -329,7 +329,7 @@ class FindMe extends React.Component {
       // location: this.state.bodySelected
         return (
           <>
-            <div className="col-9 pt-5 px-5">
+            <div className="pt-5 px-5">
               <h1>Confirm Input</h1>
               <span>Verify if the information below is correct</span>
               <div className="mt-5 rounded-3">
@@ -452,8 +452,8 @@ class FindMe extends React.Component {
   render() {
     return(
       <>
-        <div className="row h-100 mx-0">
-          <div className='h-100 col-3 p-5' style={{backgroundColor: '#3B4AD0', color: 'white'}}>
+        <div className="row min-vh-100 mx-0">
+          <div className='min-vh-100 col-3 pt-5 ps-5' style={{backgroundColor: '#3B4AD0', color: 'white'}}>
             <div className='w-100 d-flex mb-4'>
                 <img className='me-3' src={logo} alt='logo' width='75px'/>
                 <span style={{fontSize: '40px', fontWeight: 'bolder'}}>LUNA</span>
@@ -486,7 +486,7 @@ class FindMe extends React.Component {
           </div>
           <div class='col-9'>
             { this.contentHandler() }
-            <span className="row mt-5 me-5 float-end" style={{width: 'auto'}}> 
+            <span className="row me-5 mb-3 float-end" style={{width: 'auto'}}> 
               { this.state.progressIndex > 1 && 
                 <button
                   type="button"

@@ -24,7 +24,7 @@ function RequiredAuth() {
 function App() {
   return (
     <>
-      <div className="App h-100 d-none d-lg-block">
+      <div className="App min-vh-100 d-none d-lg-block">
         <Routes>
           <Route path="/register" element={<Register/>} />
           <Route path="/login" element={<Login/>} />
@@ -38,7 +38,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
-      <div className="d-flex d-lg-none h-100 align-items-center">
+      <div className="d-flex d-lg-none mh-100 align-items-center">
         <div className="container">
           <h1>Error!</h1>
           <span className="text-danger fw-bold">Unsupported resolution.</span> Please make the browser screen bigger to use the app or use a device with a bigger screen.
