@@ -1,6 +1,7 @@
 import React from "react"
 import SideBar from "../components/SideBar"
 import Symptoms from "../components/FindMe/Symptoms"
+import Options from "../data/options.json"
 import { Link } from "react-router-dom"
 import logo from '../images/moon-full-moon-icon.png'
 import "../css/luna.css"
@@ -201,63 +202,90 @@ class FindMe extends React.Component {
   preferenceState() {
     switch(this.state.preferenceIndex){
       case 0: // location
+          let locationButtons = Options.locations.map((item, index) => {
+            return <button 
+                key = {index} 
+                className={this.highlightOption("Location", item.val)} 
+                onClick={(e) => 
+                  this.onSelectChange("Location", {val: item.val, act: item.act}, e)
+                }>
+                  {item.act}
+                </button>
+          })
+          console.log(locationButtons)
           return (
             <div class="findMe-wrapper">
                 <h3><strong>Where would you prefer your doctor's clinic to be in?</strong></h3>
-                  <button class={this.highlightOption("Location", "Manila City")} onClick={(e) => this.onSelectChange("Location", {val: "Manila City", act: "Manila City"}, e)}>Manila</button>
-                  {/* <button class={this.highlightOption("Location", "Marikina")} onClick={(e) => this.onSelectChange("Location", "Marikina", e)}>Marikina</button> */}
-                  {/* <button class={this.highlightOption("Location", "Taguig")} onClick={(e) => this.onSelectChange("Location", "Taguig", e)}>Taguig</button> */}
-                  <button class={this.highlightOption("Location", "Quezon City")} onClick={(e) => this.onSelectChange("Location", {val:"Quezon City", act:"Quezon City"}, e)}>Quezon City</button>
-                  {/* <button class={this.highlightOption("Location", "Tawi-Tawi")} onClick={(e) => this.onSelectChange("Location", "Tawi-Tawi", e)}>Tawi-Tawi</button>
-                  <button class={this.highlightOption("Location", "Dipolog")} onClick={(e) => this.onSelectChange("Location", "Dipolog", e)}>Dipolog</button> */}
-                  <button class={this.highlightOption("Location", "Davao City")} onClick={(e) => this.onSelectChange("Location", {val:"Davao City", act:"Davao City"}, e)}>Davao</button>
-                  <button class={this.highlightOption("Location", "Zamboanga City")} onClick={(e) => this.onSelectChange("Location", {val:"Zamboanga City",act:"Zamboanga City"}, e)}>Zambaonga</button>
-                  {/* <button class={this.highlightOption("Location", "Bacolod")} onClick={(e) => this.onSelectChange("Location", "Bacolod", e)}>Bacolod</button>
-                  <button class={this.highlightOption("Location", "Cebu")} onClick={(e) => this.onSelectChange("Location", "Cebu", e)}>Cebu</button>
-                  <button class={this.highlightOption("Location", "Ilo-Ilo")} onClick={(e) => this.onSelectChange("Location", "Ilo-Ilo", e)}>Ilo-Ilo</button> */}
-                  <button class={this.highlightOption("Location", "")} onClick={(e) => this.onSelectChange("Location", {val:"",act:"No Preference"}, e)}>No Preference</button>
+                  { locationButtons }
             </div>
           )
       case 1: // age
+          let ageButtons = Options.ages.map((age, index) => {
+            return <button 
+              key = { index }
+              className={this.highlightOption("Age", age.val)} 
+              onClick={(e) => 
+                this.onSelectChange("Age", {val: age.val, act: age.act}, e)
+              }>
+                { age.act }
+              </button>
+              
+          })
           return (
             <div class="findMe-wrapper col-8">
                 <h3><strong>What age group do you prefer for your Doctor’s Age?</strong></h3>
-                <button class={this.highlightOption("Age", 30)} onClick={(e) => this.onSelectChange("Age", {val:30,act: "Younger than 30"}, e)}>Younger than 30</button>
-                <button class={this.highlightOption("Age", 45)} onClick={(e) => this.onSelectChange("Age", {val:45,act: "30 to 45 years old"}, e)}>30 to 45 years old</button>
-                <button class={this.highlightOption("Age", 46)} onClick={(e) => this.onSelectChange("Age", {val:46,act: "45 years or older"}, e)}>45 years or older</button>
-                <button class={this.highlightOption("Age", -1)} onClick={(e) => this.onSelectChange("Age", {val:-1,act: "No Preference"}, e)}>No Preference</button>
+                { ageButtons }
             </div>
           )
       case 2: // experience
+          let experienceButtons = Options.experiences.map((experience, index) => {
+            return <button 
+              key = { index }
+              className={this.highlightOption("Experience", experience.val)} 
+              onClick={(e) => 
+                this.onSelectChange("Experience", {val: experience.val, act: experience.act}, e)
+              }>
+                { experience.act }
+              </button>
+          })
           return (
             <div class="findMe-wrapper col-8">
                 <h3><strong>How much years of experience do you prefer with your doctors?</strong></h3>
-                <button class={this.highlightOption("Experience", 0)} onClick={(e) => this.onSelectChange("Experience", {val:0, act: "Less than 10 years of experience"}, e)}>Less than 10 years of experience</button>
-                <button class={this.highlightOption("Experience", 10)} onClick={(e) => this.onSelectChange("Experience", {val:10, act: "10 of more years of experience"}, e)}>10 or more years of experience</button>
-                <button class={this.highlightOption("Experience", 20)} onClick={(e) => this.onSelectChange("Experience", {val:20, act: "20 or more years of experience"}, e)}>20 or more years of experience</button>
-                <button class={this.highlightOption("Experience", -1)} onClick={(e) => this.onSelectChange("Experience", {val:-1, act: "No Preference"}, e)}>No Preferece</button>
-
+                { experienceButtons }
             </div>
           )
       case 3: // price
+          let priceButtons = Options.prices.map((price, index) => {
+            return <button 
+              key = { index }
+              className={this.highlightOption("Price", price.val)} 
+              onClick={(e) => 
+                this.onSelectChange("Price", {val: price.val, act: price.act}, e)
+              }>
+                { price.act }
+              </button>
+          })
           return (
             <div class="findMe-wrapper col-8">
                 <h3><strong>How much can you budget for doctor consultations?</strong></h3>
-                <button class={this.highlightOption("Price", "100-500")} onClick={(e) => this.onSelectChange("Price", {val: "100-500", act: "Less than PHP 500.00"}, e)}>Less than PHP 500.00</button>
-                <button class={this.highlightOption("Price", "501-1000")} onClick={(e) => this.onSelectChange("Price", {val: "501-1000", act: "PHP 500.00 to PHP 1,000.00"}, e)}>PHP 500.00 to PHP 1,000.00</button>
-                <button class={this.highlightOption("Price", "1001-2000")} onClick={(e) => this.onSelectChange("Price", {val: "1001-2000", act: "PHP 1,000.00 to PHP 2,000.00"}, e)}>PHP 1,000.00 to PHP 2,000.00</button>
-                <button class={this.highlightOption("Price", "2000+")} onClick={(e) => this.onSelectChange("Price", {val: "2000+", act: "More than PHP 2,000.00"}, e)}>More than PHP 2,000.00</button>
-                <button class={this.highlightOption("Price", "-1")} onClick={(e) => this.onSelectChange("Price", {val: "-1", act: "No preference"}, e)}>No preference</button>
+                { priceButtons }
             </div>
           )
       case 4: // gender
+          let genderButtons = Options.genders.map((gender, index) => {
+            return <button 
+              key = { index }
+              className={this.highlightOption("Gender", gender.val)} 
+              onClick={(e) => 
+                this.onSelectChange("Gender", {val: gender.val, act: gender.act}, e)
+              }>
+                { gender.act }
+              </button>
+          })
           return (
             <div class="findMe-wrapper col-8">
                 <h3><strong>What is your preferred sex in your doctors?</strong></h3>
-
-                <button class={this.highlightOption("Gender", "Male")} onClick={(e) => this.onSelectChange("Gender", {val: "Male", act: "Male"}, e)}>Male</button>
-                <button class={this.highlightOption("Gender", "Female")} onClick={(e) => this.onSelectChange("Gender", {val: "Female", act: "Female"}, e)}>Female</button>
-                <button class={this.highlightOption("Gender", "none")} onClick={(e) => this.onSelectChange("Gender", {val: "none", act: "No Preference"}, e)}>No Preference</button>
+                { genderButtons }
             </div>
           )
 

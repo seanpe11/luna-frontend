@@ -1,0 +1,100 @@
+{
+    "locations": [
+        {
+            "val": "Davao City",
+            "act": "Davao City"
+        },
+        {
+            "val": "Manila City",
+            "act": "Manila City"
+        },
+        {
+            "val": "Quezon City",
+            "act": "Quezon City"
+        },
+        {
+            "val": "Zamboanga City",
+            "act": "Zamboanga City"
+        },
+        {
+            "val": "",
+            "act": "No preference"
+        }
+    ],
+
+    "ages" : [
+        {
+            "val": 30,
+            "act": "Younger than 30"
+        },
+        {
+            "val": 45,
+            "act": "30 to 45 years or older"
+        },
+        {
+            "val": 46,
+            "act": "45 years or older"
+        },
+        {
+            "val": -1,
+            "act": "No preference"
+        }
+    ],
+
+    "experiences" : [
+        {
+            "val": 0,
+            "act": "Less than 10 years of experience"
+        },
+        {
+            "val":10, 
+            "act": "10 of more years of experience"
+        },
+        {   
+            "val":20, 
+            "act": "20 or more years of experience"
+        },
+        {
+            "val":-1,
+            "act": "No Preference"
+        }
+    ],
+
+    "prices" : [
+        {
+            "val": "100-500", 
+            "act": "Less than PHP 500.00"
+        },
+        {
+            "val": "1001-2000", 
+            "act": "PHP 1,000.00 to PHP 2,000.00"
+        },
+        {
+            "val": "501-1000", 
+            "act": "PHP 500.00 to PHP 1,000.00"
+        },
+        {
+            "val": "2000+", 
+            "act": "More than PHP 2,000.00"
+        },
+        {
+            "val": "-1", 
+            "act": "No preference"
+        }
+    ],
+
+    "genders" : [
+        {
+            "val": "Male",
+            "act": "Male"
+        },
+        {
+            "val": "Female",
+            "act": "Female"
+        },
+        {
+            "val": "none",
+            "act": "No Preference"
+        }
+    ]
+}
