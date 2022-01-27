@@ -171,8 +171,8 @@ function Doctors () {
         </ModalBody>
       </Modal>
       
-      <div className="row">
-        <div className="col-3">
+      <div className="row m-0 p-0">
+        <div className="col-3 m-0 p-0">
           <div className="sticky-top">
             <div className="container rounded-3 p-3 m-3 text-white" style={{backgroundColor: "#3B4AD0"}}>
               <h5>Symptoms</h5>
@@ -228,7 +228,7 @@ function Doctors () {
           </div>
         </div>
         {loaded ? 
-        <div className="col-9">
+        <div className="col-9 m-0 p-0">
           <div className="container mt-3">
             <div className="row">
               <div className="col-6 d-flex align-items-center">
@@ -298,7 +298,7 @@ function Doctors () {
           </div>
         </div> 
         :
-        <div className="col-9 d-flex flex-column justify-content-center align-items-center">
+        <div className="col-9 m-0 min-vh-100 d-flex flex-column justify-content-center align-items-center">
             <h2>Finding you doctors...</h2>
             <Rings
               height='200'

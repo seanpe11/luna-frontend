@@ -128,7 +128,7 @@ class Register extends React.Component {
     switch(this.state.progressIndex) {
       case 1:
         return (
-          <div class="container ps-5 h-100 d-flex align-items-center">
+          <div class="container ps-5 min-vh-100 d-flex align-items-center">
             <div>
               <h1>Personal Details</h1>
               <p>Provide your name, age, and email</p>
@@ -167,7 +167,7 @@ class Register extends React.Component {
         )
       case 2:
         return (
-          <div class="container ps-5 h-100 d-flex align-items-center">
+          <div class="container ps-5 min-vh-100 d-flex align-items-center">
             <div class="me-5 mt-5">
               <h1>Security</h1>
               <p>Input an 8 character password</p>
@@ -185,7 +185,7 @@ class Register extends React.Component {
         )
         case 3:
           return (
-            <div class="container ps-5 h-100 d-flex align-items-center">
+            <div class="container ps-5 min-vh-100 d-flex align-items-center">
               <div class="me-5 mt-5">
                 <h1>Medical Information</h1>
                 <p>Input relevant medical information to assit your doctors</p>
@@ -227,7 +227,7 @@ class Register extends React.Component {
           )
           case 4:
             return (
-              <div class="container ps-5 h-100 d-flex align-items-center">
+              <div class="container ps-5 min-vh-100 d-flex align-items-center">
                 <div class="me-5 mt-5">
                   <h1>Account Details</h1>
                   <p>Confirm account details to complete registration process</p>
@@ -243,8 +243,8 @@ class Register extends React.Component {
   render() {
     return(
       <>
-        <div className="row h-100 p-0 m-0">
-          <div className='h-100 col-3 p-5' style={{backgroundColor: '#3B4AD0', color: 'white'}}>
+        <div className="row min-vh-100 p-0 m-0">
+          <div className='min-vh-100 col-3 p-5' style={{backgroundColor: '#3B4AD0', color: 'white'}}>
             <div className='w-100 d-flex mb-4'>
                 <img className='me-3' src={logo} alt='logo' width='75px'/>
                 <span style={{fontSize: '40px', fontWeight: 'bolder'}}>LUNA</span>

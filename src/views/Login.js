@@ -37,8 +37,8 @@ function Login () {
 
   return (
     <>
-      <div className="row h-100 m-0 p-0">
-        <div className="col-6 d-flex flex-column justify-content-center h-100 px-5">
+      <div className="row min-vh-100 m-0 p-0">
+        <div className="col-6 d-flex flex-column justify-content-center min-vh-100 px-5">
           <h1>Welcome to LUNA!</h1>
           <p className='mb-3'>To access the system, input your login details</p>
 
