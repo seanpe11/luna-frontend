@@ -212,7 +212,33 @@ class FindMe extends React.Component {
                   <button class={this.highlightOption("Location", "Davao City")} onClick={(e) => this.onSelectChange("Location", {val:"Davao City", act:"Davao City"}, e)}>Davao</button>
                   <button class={this.highlightOption("Location", "Zamboanga City")} onClick={(e) => this.onSelectChange("Location", {val:"Zamboanga City",act:"Zamboanga City"}, e)}>Zambaonga</button>
                   {/* <button class={this.highlightOption("Location", "Bacolod")} onClick={(e) => this.onSelectChange("Location", "Bacolod", e)}>Bacolod</button>
-                  <button class={this.highlightOption("Location", "Cebu")} onClick={(e) => this.onSelectChange("Location", "Cebu", e)}>Cebu</button>
+                  <button cest match"
+Enter
+Jolo
+￼
+made some changes na to doctors page
+￼
+Enter
+Write to thesis
+
+
+Aa
+￼
+￼
+￼
+thesis
+Customize chat
+Change chat name
+Change photo
+Change theme
+￼
+Change emoji
+Edit nicknames
+Search in conversation
+Chat members
+Jolo Cansana
+Group creator
+lass={this.highlightOption("Location", "Cebu")} onClick={(e) => this.onSelectChange("Location", "Cebu", e)}>Cebu</button>
                   <button class={this.highlightOption("Location", "Ilo-Ilo")} onClick={(e) => this.onSelectChange("Location", "Ilo-Ilo", e)}>Ilo-Ilo</button> */}
                   <button class={this.highlightOption("Location", "")} onClick={(e) => this.onSelectChange("Location", {val:"",act:"No Preference"}, e)}>No Preference</button>
             </div>

@@ -91,7 +91,13 @@ class Symptoms extends React.Component {
     }
     this.setState({ hidden: false })
     this.setState({frequencyselect: "", symptomselect: "", moredetails: ""})
-    this.setState({ symptomList: (SymptomList.filter(item => item.pid === part))[0].symptoms }, () => {
+    let partList = SymptomList
+              .filter(item => item.pid === part)[0]
+              .symptoms.sort( 
+                (a, b) => 
+                  a.Name.localeCompare(b.Name, 'fr', {ignorePunctuation: true})
+              );
+    this.setState({ symptomList: partList }, () => {
       console.log(this.state.symptomList)
       let symptomSelect = document.getElementById('symptomselect');
       symptomSelect.value = ""
