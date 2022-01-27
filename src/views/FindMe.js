@@ -2,6 +2,7 @@ import React from "react"
 import SideBar from "../components/SideBar"
 import Symptoms from "../components/FindMe/Symptoms"
 import { Link } from "react-router-dom"
+import logo from '../images/moon-full-moon-icon.png'
 import "../css/luna.css"
 
 
@@ -279,7 +280,7 @@ class FindMe extends React.Component {
       case 2:
         return (
           <>
-            <div className="col-9 m-0 p-0 d-flex flex-column h-100">
+            <div className="col-9 m-0 p-0 d-flex flex-column">
               <div className="mt-5 ms-5">
                 <h1>Doctor Preferences</h1>
                 <span>Fill out the form below to identify your preferences in doctors</span>
@@ -424,46 +425,52 @@ class FindMe extends React.Component {
     return(
       <>
         <div className="row h-100 mx-0">
-          <SideBar sidedata={this.state.sidedata} changeProgress={this.childChangeProgress}/>
-          { this.contentHandler() }
-          <span className="position-absolute" style={{bottom: '30px', right: '30px', width: 'auto'}}> 
-
-            { this.state.progressIndex > 1 && 
-              <button
-                type="button"
-                class="btn btn-secondary me-3"
-                style={{width: '200px'}}
-                onClick={() => {this.backHandler()}}
-              >Back</button>
-            }
-
-            { this.nextButtonHandler() }
-          </span>
-
-          {
-            this.state.progressIndex !== 3 && 
-            <div class="card position-absolute" style={{ bottom: '30px', left: '30px', width: '250px' }}>
-              <div class="card-body">
-                <h5 class="card-title">Symptoms</h5>
-                {
-                  this.state.inputtedsymptoms.length > 0 ? this.state.inputtedsymptoms.map((item, index) => {
-                    return (
-                      <>
-                        <span style={{ fontWeight: 'bolder' }}>{item.symptom.Name}</span>
-                        <span className="text-decoration-none fw-bold text-danger cursor-pointer ms-2"  onClick={() => {this.deleteSymptom(item.symptomid)}}>🗑️</span> <br />
-                        <span>{item.location}</span><br />
-                      </>
-                    )
-                  }
-                  ) :
-                    <p class="card-text text-secondary">
-                      No symptoms inputted
-                    </p>
-                }
-
-              </div>
+          <div className='h-100 col-3 p-5' style={{backgroundColor: '#3B4AD0', color: 'white'}}>
+            <div className='w-100 d-flex mb-4'>
+                <img className='me-3' src={logo} alt='logo' width='75px'/>
+                <span style={{fontSize: '40px', fontWeight: 'bolder'}}>LUNA</span>
             </div>
-          }
+            <SideBar sidedata={this.state.sidedata} changeProgress={this.childChangeProgress}/>
+            {
+            this.state.progressIndex !== 3 && 
+              <div class="card mt-4 text-black overflow-auto" style={{ width: '250px', maxHeight: '200px' }}>
+                <div class="card-body">
+                  <h5 class="card-title">Symptoms</h5>
+                  {
+                    this.state.inputtedsymptoms.length > 0 ? this.state.inputtedsymptoms.map((item, index) => {
+                      return (
+                        <>
+                          <span style={{ fontWeight: 'bolder' }}>{item.symptom.Name}</span>
+                          <span className="text-decoration-none fw-bold text-danger cursor-pointer ms-2"  onClick={() => {this.deleteSymptom(item.symptomid)}}>🗑️</span> <br />
+                          <span>{item.location}</span><br />
+                        </>
+                      )
+                    }
+                    ) :
+                      <p class="card-text text-secondary">
+                        No symptoms inputted
+                      </p>
+                  }
+
+                </div>
+              </div>
+            }
+          </div>
+          <div class='col-9'>
+            { this.contentHandler() }
+            <span className="row mt-5 me-5 float-end" style={{width: 'auto'}}> 
+              { this.state.progressIndex > 1 && 
+                <button
+                  type="button"
+                  class="btn btn-secondary me-3"
+                  style={{width: '200px'}}
+                  onClick={() => {this.backHandler()}}
+                >Back</button>
+              }
+
+              { this.nextButtonHandler() }
+            </span>
+          </div>
         </div>
       </>
     )

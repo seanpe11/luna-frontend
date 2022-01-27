@@ -106,132 +106,126 @@ class Symptoms extends React.Component {
   render() {
     return (
       <>
-        <div className="col-4 px-0">
-          <div className="mb-3">
-            <OverlayTrigger key="head" placement="bottom" overlay={
-              <Tooltip>
-                Head, Throat, and Neck
-              </Tooltip>
-            }>
-              <img className="mx-auto d-block cursor-pointer" src={head} alt='head' onClick={() => { this.bodyClicker("head") }} data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Head, Throat, and Neck" />
-            </OverlayTrigger>
-          </div>
-          <div className="mb-3 row">
-            <div className="col-4 p-0">
-            <OverlayTrigger key="larm" placement="bottom" overlay={
-              <Tooltip>
-                Arms and Shoulder
-              </Tooltip>
-            }>
-              <img className="float-end d-block cursor-pointer" src={larm} alt='larm' onClick={() => { this.bodyClicker("arms") }} />
-            </OverlayTrigger>
-            </div>
-            <div className="col-4 p-0">
-              <OverlayTrigger key="chest" placement="bottom" overlay={
+        <div className="row">
+          <div className="col-5 px-0">
+            <div className="mb-3">
+              <OverlayTrigger key="head" placement="bottom" overlay={
                 <Tooltip>
-                  Chest and Back
+                  Head, Throat, and Neck
                 </Tooltip>
               }>
-              <img className="mb-3 mx-auto d-block cursor-pointer" src={chest} alt='chest' onClick={() => { this.bodyClicker("chest") }} /> 
+                <img className="mx-auto d-block cursor-pointer" src={head} alt='head' onClick={() => { this.bodyClicker("head") }} data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Head, Throat, and Neck" />
               </OverlayTrigger>
-              <OverlayTrigger key="abdomen" placement="bottom" overlay={
+            </div>
+            <div className="mb-3 row">
+              <div className="col-4 p-0">
+              <OverlayTrigger key="larm" placement="bottom" overlay={
+                <Tooltip>
+                  Arms and Shoulder
+                </Tooltip>
+              }>
+                <img className="float-end d-block cursor-pointer" src={larm} alt='larm' onClick={() => { this.bodyClicker("arms") }} />
+              </OverlayTrigger>
+              </div>
+              <div className="col-4 p-0">
+                <OverlayTrigger key="chest" placement="bottom" overlay={
                   <Tooltip>
-                    Abdomen, Pelvis, and Buttocks
+                    Chest and Back
                   </Tooltip>
                 }>
-                <img className="mb-3 mx-auto d-block cursor-pointer" src={abdomen} alt='abdomen' onClick={() => { this.bodyClicker("abdomen") }} /> 
+                <img className="mb-3 mx-auto d-block cursor-pointer" src={chest} alt='chest' onClick={() => { this.bodyClicker("chest") }} />
+                </OverlayTrigger>
+                <OverlayTrigger key="abdomen" placement="bottom" overlay={
+                    <Tooltip>
+                      Abdomen, Pelvis, and Buttocks
+                    </Tooltip>
+                  }>
+                  <img className="mb-3 mx-auto d-block cursor-pointer" src={abdomen} alt='abdomen' onClick={() => { this.bodyClicker("abdomen") }} />
+                </OverlayTrigger>
+                <OverlayTrigger key="legs" placement="bottom" overlay={
+                  <Tooltip>
+                    Legs
+                  </Tooltip>
+                }>
+                <img className="mb-3 mx-auto d-block cursor-pointer" src={legs} alt='legs' onClick={() => { this.bodyClicker("legs") }} />
               </OverlayTrigger>
-              <OverlayTrigger key="legs" placement="bottom" overlay={
-                <Tooltip>
-                  Legs
-                </Tooltip>
-              }>
-              <img className="mb-3 mx-auto d-block cursor-pointer" src={legs} alt='legs' onClick={() => { this.bodyClicker("legs") }} />
-            </OverlayTrigger>
-            </div>
-            <div className="col-4 p-0">
-              <OverlayTrigger key="rarms" placement="bottom" overlay={
-                <Tooltip>
-                  Arms
-                </Tooltip>
-              }>
-                <img className="float-start d-block cursor-pointer" src={rarm} alt='rarm' onClick={() => { this.bodyClicker("arms") }} />
-              </OverlayTrigger>
-            </div>
-          </div>
-        </div>
-        <div className="col-5 px-0">
-
-          <div class="me-5 mt-5">
-            <h1>Input your symptoms</h1>
-            <p>{this.state.tiptext}</p>
-          </div>
-
-          <button type="button" class="btn btn-primary" onClick={() => { this.bodyClicker("general") }}>Skin, Joints and General Symptoms</button>
-
-          <div class={this.state.hidden ? "card d-none" : "card mt-4 me-5"}>
-            <div class="card-body">
-              <div className="">
-                <h5 class="card-title">{this.state.bodySelected}</h5>
               </div>
+              <div className="col-4 p-0">
+                <OverlayTrigger key="rarms" placement="bottom" overlay={
+                  <Tooltip>
+                    Arms
+                  </Tooltip>
+                }>
+                  <img className="float-start d-block cursor-pointer" src={rarm} alt='rarm' onClick={() => { this.bodyClicker("arms") }} />
+                </OverlayTrigger>
+              </div>
+            </div>
+          </div>
+          <div className="col-7 px-0">
+            <div class="me-5 mt-5">
+              <h1>Input your symptoms</h1>
+              <p>{this.state.tiptext}</p>
+            </div>
+            <button type="button" class="btn btn-primary" onClick={() => { this.bodyClicker("general") }}>Skin, Joints and General Symptoms</button>
+            <div class={this.state.hidden ? "card d-none" : "card mt-4 me-5"}>
               <div class="card-body">
-                <div class="form-floating mb-4">
-                  <select class="form-select" id="symptomselect" aria-label="Floating label select example" onChange={evt => this.setState({ symptomselect: evt.target.value })}>
-                    {
-                      this.state.symptomList.map((item, index) => {
-                        if (index === 0)
-                          return (
-                            <>
-                              <option value=""> </option>
+                <div className="">
+                  <h5 class="card-title">{this.state.bodySelected}</h5>
+                </div>
+                <div class="card-body">
+                  <div class="form-floating mb-4">
+                    <select class="form-select" id="symptomselect" aria-label="Floating label select example" onChange={evt => this.setState({ symptomselect: evt.target.value })}>
+                      {
+                        this.state.symptomList.map((item, index) => {
+                          if (index === 0)
+                            return (
+                              <>
+                                <option value=""> </option>
+                                <option value={item.ID}>{item.Name}</option>
+                              </>
+                            )
+                          else
+                            return (
                               <option value={item.ID}>{item.Name}</option>
-                            </>
-                          )
-                        else
-                          return (
-                            <option value={item.ID}>{item.Name}</option>
-                          )
+                            )
+                        }
+                        )
                       }
-                      )
-                    }
-                  </select>
-                  <label for="floatingSelect">Symptom</label>
-                </div>
-
-                <div class="form-floating mb-4">
-                  <select class="form-select" id="frequencyselect" aria-label="Floating label select example" onChange={evt => this.setState({ frequencyselect: evt.target.value })}>
-                    {
-                      this.state.frequencyList.map((item, index) => {
-                        if (index === 0)
-                          return (
-                            <>
-                              <option value=""> </option>
-                              <option value={item}>{item}</option>
-                            </>
-                          )
-                        else
-                          return (
-                            <option value={item}>{item}</option>
-                          )
-                      }
-                      )
-                    }
-                  </select>
-                  <label for="floatingSelect">Frequency</label>
-                </div>
-
-                <div class="form-floating mb-4">
-                  <textarea id="moredetails" class="form-control" placeholder="Leave a comment here" style={{ height: "100px" }} onChange={evt => this.setState({ moredetails: evt.target.value })}> </textarea>
-                  <label for="floatingTextarea">More Details</label>
-                </div>
-
-                {this.state.symptomExistsError && 
-                  <div class="alert alert-danger" role="alert">
-                    Symptom already inputted to the list. To make changes, remove the symptom from the list first!
+                    </select>
+                    <label for="floatingSelect">Symptom</label>
                   </div>
-                }
-
-                {this.addSymptomChecker()}
-
+                  <div class="form-floating mb-4">
+                    <select class="form-select" id="frequencyselect" aria-label="Floating label select example" onChange={evt => this.setState({ frequencyselect: evt.target.value })}>
+                      {
+                        this.state.frequencyList.map((item, index) => {
+                          if (index === 0)
+                            return (
+                              <>
+                                <option value=""> </option>
+                                <option value={item}>{item}</option>
+                              </>
+                            )
+                          else
+                            return (
+                              <option value={item}>{item}</option>
+                            )
+                        }
+                        )
+                      }
+                    </select>
+                    <label for="floatingSelect">Frequency</label>
+                  </div>
+                  <div class="form-floating mb-4">
+                    <textarea id="moredetails" class="form-control" placeholder="Leave a comment here" style={{ height: "100px" }} onChange={evt => this.setState({ moredetails: evt.target.value })}> </textarea>
+                    <label for="floatingTextarea">More Details</label>
+                  </div>
+                  {this.state.symptomExistsError &&
+                    <div class="alert alert-danger" role="alert">
+                      Symptom already inputted to the list. To make changes, remove the symptom from the list first!
+                    </div>
+                  }
+                  {this.addSymptomChecker()}
+                </div>
               </div>
             </div>
           </div>

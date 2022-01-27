@@ -1,5 +1,7 @@
 import React from "react"
 import SideBar from "../components/SideBar"
+import logo from '../images/moon-full-moon-icon.png'
+
 
 class Register extends React.Component {
   
@@ -242,7 +244,13 @@ class Register extends React.Component {
     return(
       <>
         <div className="row h-100 p-0 m-0">
-          <SideBar sidedata={this.state.sidedata} />
+          <div className='h-100 col-3 p-5' style={{backgroundColor: '#3B4AD0', color: 'white'}}>
+            <div className='w-100 d-flex mb-4'>
+                <img className='me-3' src={logo} alt='logo' width='75px'/>
+                <span style={{fontSize: '40px', fontWeight: 'bolder'}}>LUNA</span>
+            </div>
+            <SideBar sidedata={this.state.sidedata} />
+          </div>
           <div className="col-9 m-0 p-0">
             {this.state.content}
           </div>
