@@ -182,7 +182,10 @@ class FindMe extends React.Component {
       default:
         break
     }    
-    this.setState({preferences: preferences, thereIsSelection: true})
+    this.setState({preferences: preferences})
+    this.setState({
+      thereIsSelection: (preferences.price && preferences.location && preferences.age && preferences.experience && preferences.gender) 
+    })
   }
 
   backHandler() {
@@ -200,27 +203,17 @@ class FindMe extends React.Component {
   }
 
   preferenceState() {
-    switch(this.state.preferenceIndex){
-      case 0: // location
-          let locationButtons = Options.locations.map((item, index) => {
-            return <button 
-                key = {index} 
-                className={this.highlightOption("Location", item.val)} 
-                onClick={(e) => 
-                  this.onSelectChange("Location", {val: item.val, act: item.act}, e)
-                }>
-                  {item.act}
-                </button>
-          })
-          console.log(locationButtons)
-          return (
-            <div class="findMe-wrapper">
-                <h3><strong>Where would you prefer your doctor's clinic to be in?</strong></h3>
-                  { locationButtons }
-            </div>
-          )
-      case 1: // age
-          let ageButtons = Options.ages.map((age, index) => {
+    let locationButtons = Options.locations.map((item, index) => {
+      return <button 
+          key = {index} 
+          className={this.highlightOption("Location", item.val)} 
+          onClick={(e) => 
+            this.onSelectChange("Location", {val: item.val, act: item.act}, e)
+          }>
+            {item.act}
+          </button>
+    })
+    let ageButtons = Options.ages.map((age, index) => {
             return <button 
               key = { index }
               className={this.highlightOption("Age", age.val)} 
@@ -229,16 +222,8 @@ class FindMe extends React.Component {
               }>
                 { age.act }
               </button>
-              
-          })
-          return (
-            <div class="findMe-wrapper">
-                <h3><strong>What age group do you prefer for your Doctor’s Age?</strong></h3>
-                { ageButtons }
-            </div>
-          )
-      case 2: // experience
-          let experienceButtons = Options.experiences.map((experience, index) => {
+    })
+    let experienceButtons = Options.experiences.map((experience, index) => {
             return <button 
               key = { index }
               className={this.highlightOption("Experience", experience.val)} 
@@ -247,15 +232,8 @@ class FindMe extends React.Component {
               }>
                 { experience.act }
               </button>
-          })
-          return (
-            <div class="findMe-wrapper">
-                <h3><strong>How much years of experience do you prefer with your doctors?</strong></h3>
-                { experienceButtons }
-            </div>
-          )
-      case 3: // price
-          let priceButtons = Options.prices.map((price, index) => {
+    })
+    let priceButtons = Options.prices.map((price, index) => {
             return <button 
               key = { index }
               className={this.highlightOption("Price", price.val)} 
@@ -264,15 +242,8 @@ class FindMe extends React.Component {
               }>
                 { price.act }
               </button>
-          })
-          return (
-            <div class="findMe-wrapper">
-                <h3><strong>How much can you budget for doctor consultations?</strong></h3>
-                { priceButtons }
-            </div>
-          )
-      case 4: // gender
-          let genderButtons = Options.genders.map((gender, index) => {
+    })
+    let genderButtons = Options.genders.map((gender, index) => {
             return <button 
               key = { index }
               className={this.highlightOption("Gender", gender.val)} 
@@ -281,19 +252,36 @@ class FindMe extends React.Component {
               }>
                 { gender.act }
               </button>
-          })
-          return (
-            <div class="findMe-wrapper">
-                <h3><strong>What is your preferred sex in your doctors?</strong></h3>
-                { genderButtons }
-            </div>
-          )
+    })
 
-      default:
-          return(
-            <div>something broke</div>
-          )
-    }
+    return (
+      <div class="findMe-wrapper">
+          <div class="findMe-formOption mx-2 mt-2 mb-5">
+            <h3><strong>Where would you prefer your doctor's clinic to be in?</strong></h3>
+            { locationButtons }
+          </div>
+
+          <div class="findMe-formOption mx-2 my-5">
+            <h3><strong>What age group do you prefer for your Doctor’s Age?</strong></h3>
+              { ageButtons }
+          </div>
+
+          <div class="findMe-formOption mx-2 my-5">
+            <h3><strong>How much years of experience do you prefer with your doctors?</strong></h3>
+              { experienceButtons }
+          </div>
+            
+          <div class="findMe-formOption mx-2 my-5">
+            <h3><strong>How much can you budget for doctor consultations?</strong></h3>
+              { priceButtons }
+          </div>
+          
+          <div class="findMe-formOption mx-2 my-5">
+            <h3><strong>What is your preferred sex in your doctors?</strong></h3>
+                { genderButtons }
+          </div>
+      </div>
+    )
       
   }
 
