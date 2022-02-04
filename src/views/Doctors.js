@@ -62,7 +62,10 @@ function Doctors () {
   var [editMode, setEditMode] = useState(false);
   var [editPreferences, setEditPreferences] = useState(preferences)
   var [noDoctors, setNoDoctors] = useState(false)
-  var [doctors, setDoctors] = useState([])
+  // var [editMode, setEditMode] = useState(false);
+  // var [editPreferences, setEditPreferences] = useState(preferences)
+  var [doctors1, setDoctors1] = useState([])
+  var [doctors2, setDoctors2] = useState([])
   var [loaded, setLoaded] = useState([]) 
   var [specDoctors, setSpecDoctors] = useState([])
   // var [diagnosis, setDiagnosis] = useState([])
@@ -70,6 +73,7 @@ function Doctors () {
   var [selectedSort, setSelectedSort] = useState("")
   var [modalShow, setModalShow] = useState(false); 
   var [activeDoctor, setActiveDoctor] = useState({});
+  var [showMore, setShowMore] = useState(false)
 
   
 
@@ -95,7 +99,8 @@ function Doctors () {
           secondRecom = res.secondRecommendations.map(e => ({...e, isFirst: false}))
           
         }
-        setDoctors(doctors.concat(firstRecom, secondRecom))
+        setDoctors1(firstRecom)
+        setDoctors2(secondRecom)
         setSpecDoctors(res.specRecommendations)
         setNoDoctors(res.firstRecommendations.length + res.secondRecommendations.length > 0)
         // setDiagnosis(res.diagnosis)
@@ -119,7 +124,8 @@ function Doctors () {
   }
 
   function sortAlphabetically() {
-    setDoctors([...doctors].sort(sortLastname))
+    setDoctors1([...doctors1].sort(sortLastname))
+    setDoctors2([...doctors2].sort(sortLastname))
     setSpecDoctors([...specDoctors].sort(sortLastname))
     console.log(specDoctors)
     setSelectedSort("Alphabetically")
@@ -356,8 +362,8 @@ function Doctors () {
             </div>
             <div className="container">
               <h5>Legend</h5>
-              <span className="badge bg-primary">1st</span> - All preferences match <br/>
-              <span className="badge bg-primary">2nd</span> - Only specialization and location matched
+              <span class="badge bg-primary">1st</span> - All preferences and best specialization match <br/>
+              <span class="badge bg-primary">2nd</span> - Only specialization and location preference matched
             </div>
           </div>
         </div>
@@ -379,8 +385,8 @@ function Doctors () {
             
 
             <div id="doctor-container" className='mt-4'>
-              <h3 className='mb-3'>Closest Match to your Preferences</h3>
-              { 
+              <h3 className='mb-3'>Doctors that matches all your preferences and best specialization</h3>
+              {
                 // SAMPLE DOCTOR
                 // clinic_address: "Manila City"
                 // clinic_location: "Manila Doctors Hospital"
@@ -389,7 +395,7 @@ function Doctors () {
                 // price_range: "100-500"
                 // sex: "Male"
                 // specialization: "Cardiology"
-                doctors.map((doctor, index) => {
+                doctors1.map((doctor, index) => {
                   return(
                     <div className="row mb-2 cursor-pointer hover-effect-grey rounded-3" key={index} onClick={() => showDoctorInfo(doctor)}>
                       <div className="col-1">
@@ -404,7 +410,7 @@ function Doctors () {
               }
             </div>
             <div id="doctor-container" className='mt-4'>
-              <h3 className='mb-3'>Doctors based on your symptoms</h3>
+              <h3 className='mb-3'>Doctors that matches your location preference and best specialization</h3>
               {
                 // SAMPLE DOCTOR
                 // clinic_address: "Manila City"
@@ -414,6 +420,34 @@ function Doctors () {
                 // price_range: "100-500"
                 // sex: "Male"
                 // specialization: "Cardiology"
+                doctors2.map((doctor) => {
+                  return(
+                    <>
+                      <div className="row mb-2 cursor-pointer hover-effect-grey rounded-3" onClick={() => showDoctorInfo(doctor)}>
+                        <div className="col-1">
+                          <img src={doctor.sex === "Male" ? DoctorMale : DoctorFemale} alt="doctor_pic" style={{width: '50px'}}/>
+                        </div>
+                        <div className='col-4 ps-4'><span className="d-flex h-100 align-items-center">Dr. {doctor.name}<span class="badge bg-primary ms-2">{doctor.isFirst ? "1st" : "2nd"}</span> </span></div>
+                        <div className='col-3'><span className="d-flex h-100 align-items-center">{doctor.specialization}</span></div>
+                        <div className='col-4'><span className="d-flex h-100 align-items-center float-end">{doctor.clinic_address}</span></div>
+                      </div>
+                    </>
+                  )
+                })
+              }
+            </div>
+            <div id="doctor-container" className='mt-4'>
+              <h3 className='mb-3'>Doctors based on best specialization only</h3>
+              {
+                // SAMPLE DOCTOR
+                // clinic_address: "Manila City"
+                // clinic_location: "Manila Doctors Hospital"
+                // med_school: "UERM"
+                // name: "Giovanni Bocanegra"
+                // price_range: "100-500"
+                // sex: "Male"
+                // specialization: "Cardiology"
+                showMore ?
                 specDoctors.map((doctor, index) => {
                   return(
                       <div className="row mb-2 cursor-pointer hover-effect-grey rounded-3" key={index} onClick={() => showDoctorInfo(doctor)}>
@@ -425,7 +459,8 @@ function Doctors () {
                         <div className='col-4'><span className="d-flex h-100 align-items-center float-end">{doctor.clinic_address}</span></div>
                       </div>
                   )
-                })
+                }) :
+                <button className="btn btn-primary" onClick={() => {setShowMore(true)}}>Show doctors</button>
               }
             </div>
           </div>
