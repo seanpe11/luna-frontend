@@ -5,6 +5,7 @@ import Options from "../data/options.json"
 import { Link } from "react-router-dom"
 import logo from '../images/moon-full-moon-icon.png'
 import "../css/luna.css"
+import { Modal, Button} from "react-bootstrap"
 
 
 class FindMe extends React.Component {
@@ -25,6 +26,7 @@ class FindMe extends React.Component {
       thereIsSelection: false,
       sidedata: [],
       inputtedsymptoms: [],
+      modalShow: true
     }
     this.childChangeProgress = this.childChangeProgress.bind(this)
     this.pushSymptom = this.pushSymptom.bind(this)
@@ -328,8 +330,8 @@ class FindMe extends React.Component {
                       <>
                         <span style={{fontSize: '1.3rem'}}>{item.symptom.Name} - {item.frequency}</span> <br />
                         <span className="fst-italic">{item.location}</span> <br/>
-                        <span className="text-secondary">{item.details}</span>
-                        <br />
+                        <span className="text-secondary">{item.details === "" ? "No extra details inputted." : item.details}</span>
+                        <br /> <br />
                       </>
                     )
                   })
@@ -432,6 +434,37 @@ class FindMe extends React.Component {
   render() {
     return(
       <>
+        <Modal
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+          show={this.state.modalShow}
+        >
+          <Modal.Header>
+            <Modal.Title id="contained-modal-title-vcenter">
+              Welcome to LUNA Find me a Doctor! 👋
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <h5 class='text-primary'>What is going to happen?</h5>
+            <p>
+              You will go through a 3-step process to find your doctor. We will be collecting your <b>Symptoms</b> and <b>Doctor Preferences.</b> After, we will serve you a list of doctors based on those two.
+            </p>
+            <p>
+              <b class='text-primary'>1. Symptom Input:</b> You can <b>click any body part</b> that will be shown on the page and a list of symptoms will appear. You can <b>choose multiple symptoms</b> that may apply to them as well as the frequency of the symptom and additional information that can detail their symptoms more. You can also select symptoms from the <b>'Skins, Joints, and General Symptoms'</b> button for more general symptoms.
+            </p>
+            <p>
+              <b class='text-primary'>2. Doctor Preferences:</b> You have multiple options to narrow down the doctor of their choice such as the <b>location of the doctor, age, years of experience, consultation fee, and gender</b> of the doctor. These options will match a doctor that is best suited for you.
+            </p>
+            <p>
+              <b class='text-primary'>3. Doctor List:</b> After, you will be served with doctors that match all your preferences, doctors that match only your symptoms and locations, and doctors that match your symptoms only.
+            </p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={() => {this.setState({modalShow: false})}}>Close</Button>
+          </Modal.Footer>
+        </Modal>
+        <div className="row"></div>
         <div className="row min-vh-100 mx-0">
           <div className='min-vh-100 col-3 pt-5 ps-5' style={{backgroundColor: '#3B4AD0', color: 'white'}}>
             <div className='w-100 d-flex mb-4'>

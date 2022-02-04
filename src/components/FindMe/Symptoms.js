@@ -6,13 +6,14 @@ import larm from "../../images/bodyparts/l-arm.png"
 import rarm from "../../images/bodyparts/r-arm.png"
 import React from "react"
 import SymptomList from "../../data/body_locations_symptoms.json"
-import { OverlayTrigger, Tooltip } from "react-bootstrap"
+import { Overlay, Tooltip } from "react-bootstrap"
 
 class Symptoms extends React.Component {
 
   constructor() {
     super()
     this.state = {
+      show: false,
       bodySelected: "None",
       symptomList: [],
       frequencyList: ['Once a Day', 'Once a Week', 'Twice a Week', 'Consistent'],
@@ -23,6 +24,17 @@ class Symptoms extends React.Component {
       moredetails: "",
       symptomExistsError: false
     }
+    this.headRef = React.createRef()
+    this.armRef = React.createRef()
+    this.chestRef = React.createRef()
+    this.abdomenRef = React.createRef()
+    this.legsRef = React.createRef()
+    console.log("Called in constructor", this.headRef);    
+  }
+
+  componentDidMount() {
+    console.log("Called in component mount", this.headRef);
+    console.log("Called in component mount", this.larmRef);
   }
 
   inputSymptom() {
@@ -115,56 +127,48 @@ class Symptoms extends React.Component {
         <div className="row">
           <div className="col-5 px-0">
             <div className="mb-3">
-              <OverlayTrigger key="head" placement="bottom" overlay={
+              <img className="mx-auto d-block cursor-pointer" ref={this.headRef} src={head} alt='head' onClick={() => { this.bodyClicker("head")}} />
+              <Overlay show={this.state.show} target={this.headRef.current} placement="left">
                 <Tooltip>
                   Head, Throat, and Neck
                 </Tooltip>
-              }>
-                <img className="mx-auto d-block cursor-pointer" src={head} alt='head' onClick={() => { this.bodyClicker("head") }} data-bs-toggle="tooltip" data-bs-placement="top" title="" data-bs-original-title="Head, Throat, and Neck" />
-              </OverlayTrigger>
+              </Overlay>
             </div>
             <div className="mb-3 row">
               <div className="col-4 p-0">
-              <OverlayTrigger key="larm" placement="bottom" overlay={
-                <Tooltip>
-                  Arms and Shoulder
-                </Tooltip>
-              }>
                 <img className="float-end d-block cursor-pointer" src={larm} alt='larm' onClick={() => { this.bodyClicker("arms") }} />
-              </OverlayTrigger>
               </div>
               <div className="col-4 p-0">
-                <OverlayTrigger key="chest" placement="bottom" overlay={
+                <img className="mb-3 mx-auto d-block cursor-pointer" ref={this.chestRef} src={chest} alt='chest' onClick={() => { this.bodyClicker("chest") }} />
+                <Overlay show={this.state.show} target={this.chestRef.current} key="chest" placement="left">
                   <Tooltip>
                     Chest and Back
                   </Tooltip>
-                }>
-                <img className="mb-3 mx-auto d-block cursor-pointer" src={chest} alt='chest' onClick={() => { this.bodyClicker("chest") }} />
-                </OverlayTrigger>
-                <OverlayTrigger key="abdomen" placement="bottom" overlay={
-                    <Tooltip>
-                      Abdomen, Pelvis, and Buttocks
-                    </Tooltip>
-                  }>
-                  <img className="mb-3 mx-auto d-block cursor-pointer" src={abdomen} alt='abdomen' onClick={() => { this.bodyClicker("abdomen") }} />
-                </OverlayTrigger>
-                <OverlayTrigger key="legs" placement="bottom" overlay={
+                </Overlay>
+                <img className="mb-3 mx-auto d-block cursor-pointer" ref={this.abdomenRef} src={abdomen} alt='abdomen' onClick={() => { this.bodyClicker("abdomen") }} />
+                <Overlay show={this.state.show} target={this.abdomenRef.current} key="abdomen" placement="left">
+                  <Tooltip>
+                    Abdomen, Pelvis, and Buttocks
+                  </Tooltip>
+                </Overlay>
+                <img className="mb-3 mx-auto d-block cursor-pointer" ref={this.legsRef} src={legs} alt='legs' onClick={() => { this.bodyClicker("legs") }} />
+                <Overlay show={this.state.show} target={this.legsRef.current} key="legs" placement="left">
                   <Tooltip>
                     Legs
                   </Tooltip>
-                }>
-                <img className="mb-3 mx-auto d-block cursor-pointer" src={legs} alt='legs' onClick={() => { this.bodyClicker("legs") }} />
-              </OverlayTrigger>
+                </Overlay>
               </div>
               <div className="col-4 p-0">
-                <OverlayTrigger key="rarms" placement="bottom" overlay={
+                <img className="d-block cursor-pointer" ref={this.armRef} src={rarm} alt='rarm' onClick={() => { this.bodyClicker("arms") }} />
+                <Overlay show={this.state.show} target={this.armRef.current} placement="bottom">
                   <Tooltip>
-                    Arms
+                    Arms and Shoulder
                   </Tooltip>
-                }>
-                  <img className="float-start d-block cursor-pointer" src={rarm} alt='rarm' onClick={() => { this.bodyClicker("arms") }} />
-                </OverlayTrigger>
+                </Overlay>
               </div>
+            </div>
+            <div className="d-flex justify-content-center">
+              <button class="btn btn-primary" onClick={ () => {this.setState({show: !this.state.show})} }>Toggle Labels</button>
             </div>
           </div>
           <div className="col-7 px-0">
