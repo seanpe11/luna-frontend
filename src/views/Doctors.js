@@ -61,6 +61,7 @@ function Doctors () {
   const {preferences, symptoms} = location.state
   var [editMode, setEditMode] = useState(false);
   var [editPreferences, setEditPreferences] = useState(preferences)
+  var [noDoctors, setNoDoctors] = useState(false)
   var [doctors, setDoctors] = useState([])
   var [loaded, setLoaded] = useState([]) 
   var [specDoctors, setSpecDoctors] = useState([])
@@ -70,15 +71,23 @@ function Doctors () {
   var [modalShow, setModalShow] = useState(false); 
   var [activeDoctor, setActiveDoctor] = useState({});
 
+  
+
   useEffect(() => {
-      setLoaded(false)
+      loadDoctors(preferences, symptoms)
+  }
+    // eslint-disable-next-line
+    , [preferences])
+
+  function loadDoctors(preferences, symptoms){
+    setLoaded(false)
       var firstRecom, secondRecom = []
       queryDoctors(preferences, symptoms).then(res => {
+
         console.log(res)
         
         if(res.firstRecommendations.length > 0)
         {
-          console.log("first")
           firstRecom = res.firstRecommendations.map(e => ({...e, isFirst: true}))
         }
         if(res.secondRecommendations.length > 0)
@@ -88,13 +97,12 @@ function Doctors () {
         }
         setDoctors(doctors.concat(firstRecom, secondRecom))
         setSpecDoctors(res.specRecommendations)
+        setNoDoctors(res.firstRecommendations.length + res.secondRecommendations.length > 0)
         // setDiagnosis(res.diagnosis)
         setSpecialization(res.diagnosis[0].Specialisation[0].Name)
         setLoaded(true)
       })
   }
-    // eslint-disable-next-line
-    , [])
 
   function showDoctorInfo (props) {
     console.log(props)
@@ -123,6 +131,44 @@ function Doctors () {
     setSpecDoctors(toSort)
     console.log(specDoctors)
     setSelectedSort("Location")
+  }
+
+  function onSelectChange(e) {
+    let updated = editPreferences
+    switch(e.target.id){
+      case "location":
+        updated.location = {
+          val: e.target.value
+        };
+        break;
+      case "age":
+        updated.age = {
+          val: e.target.value
+        };
+        break;
+      case "experience":
+        updated.experience = {
+          val: e.target.value
+        };
+        break;
+      case "price":
+        updated.price = {
+          val: e.target.value
+        };
+        break;
+      case "gender":
+        updated.gender = {
+          val: e.target.value
+        };
+        break;
+      default:
+        break;
+    }
+    setEditPreferences(updated);
+  }
+
+  function getNewDoctors(){
+    loadDoctors(editPreferences, symptoms)
   }
 
   function selectSort(value) {
@@ -183,10 +229,10 @@ function Doctors () {
               <div>
                 Based on your Symptoms, the best specialization to contact is: <span className="fw-bold">{specialization}</span>
               </div>}
-              {symptoms.map((symptom) => {
+              {symptoms.map((symptom, index) => {
                 return (
                   <>
-                    <div className='mt-3 fw-bold'>{symptom.symptom.Name}</div>
+                    <div key={index} className='mt-3 fw-bold'>{symptom.symptom.Name}</div>
                     <div>{symptom.location}</div>
                   </>
                 )
@@ -194,11 +240,9 @@ function Doctors () {
             </div>
             <div className="container rounded-3 p-3 m-3 text-white" style={{backgroundColor: "#3B4AD0"}}>
               <h5>Preferences</h5>
-              <h3 onClick={setEditMode(!editMode)}>Edit</h3>
-              {
-                    <table class="table table-borderless text-white">
-                      <col style={{width: "30%"}} />
-            	                  <col style={{width: "70%"}}  />
+              { !editMode ? 
+                    <table className="table table-borderless text-white">
+                      
                       <tbody>
                         <tr>
                           <th>Doctor Location</th>
@@ -221,33 +265,122 @@ function Doctors () {
                           <td>{preferences.gender.act}</td>
                         </tr>
                       </tbody>
-                    </table>
-                  }
+                    </table> 
+                    :
+                    <table className="table table-borderless text-white">
+                      <tbody>
+                        <tr>
+                          <th>Doctor Location</th>
+                          <td>
+                            <select className="form-select" onChange={onSelectChange} id="location">
+                              {
+                                Options.locations.map((obj) => {
+                                  return (
+                                    <option value={obj.val}>{obj.act}</option>
+                                  )
+                                })
+                              }
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Doctor Age</th>
+                          <td>
+                            <select className="form-select" onChange={onSelectChange} id="age">
+                              {
+                                Options.ages.map((obj) => {
+                                  return (
+                                    <option value={obj.val}>{obj.act}</option>
+                                  )
+                                })
+                              }
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Doctor Experience</th>
+                          <td>
+                            <select className="form-select" onChange={onSelectChange} id="experience">
+                              {
+                                Options.experiences.map((obj) => {
+                                  return (
+                                    <option value={obj.val}>{obj.act}</option>
+                                  )
+                                })
+                              }
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Doctor Fee</th>
+                          <td>
+                            <select className="form-select" onChange={onSelectChange} id="price">
+                              {
+                                Options.prices.map((obj) => {
+                                  return (
+                                    <option value={obj.val}>{obj.act}</option>
+                                  )
+                                })
+                              }
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th>Doctor Sex</th>
+                          <td>
+                            <select className="form-select" onChange={onSelectChange} id="gender">
+                              {
+                                Options.genders.map((obj) => {
+                                  return (
+                                    <option value={obj.val}>{obj.act}</option>
+                                  )
+                                })
+                              }
+                            </select>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table> 
+                }
+              { !editMode ? 
+                <div class="d-flex flex-row-reverse bd-highlight">
+                  <button className="btn btn-secondary" onClick={() => {setEditMode(!editMode)}}>Edit</button>
+                </div>
+                :
+                <div class="d-flex flex-row-reverse bd-highlight">
+                  <button className="btn btn-secondary mx-1" onClick={() => {setEditMode(!editMode)}}>Cancel</button>
+                  <button className="btn btn-secondary mx-1" onClick={getNewDoctors}>Save</button>
+                </div>
+              }
+              
             </div>
             <div className="container">
               <h5>Legend</h5>
-              <span class="badge bg-primary">1st</span> - All preferences match <br/>
-              <span class="badge bg-primary">2nd</span> - Only specialization and location matched
+              <span className="badge bg-primary">1st</span> - All preferences match <br/>
+              <span className="badge bg-primary">2nd</span> - Only specialization and location matched
             </div>
           </div>
         </div>
         {loaded ? 
         <div className="col-9 m-0 p-0">
+          { noDoctors ? 
           <div className="container mt-3">
             <div className="row">
               <div className="col-6 d-flex align-items-center">
-                <input type="text" class="form-control" placeholder="Search Doctors" aria-label="doctors"/>
+                <input type="text" className="form-control" placeholder="Search Doctors" aria-label="doctors"/>
               </div>
               <div className="col-6 d-flex justify-content-around align-items-center">
-                <button type="button" class={selectSort("Location")} style={{maxHeight: '40px'}} onClick={sortLocationally}>Location</button>
-                <button type="button" class={selectSort("Alphabetically")} style={{maxHeight: '40px'}} onClick={sortAlphabetically}>Alphabetically (A-Z)</button>
+                <button type="button" className={selectSort("Location")} style={{maxHeight: '40px'}} onClick={sortLocationally}>Location</button>
+                <button type="button" className={selectSort("Alphabetically")} style={{maxHeight: '40px'}} onClick={sortAlphabetically}>Alphabetically (A-Z)</button>
                 {/* <button type="button" class="btn btn-outline-secondary">Alphabetically (Z-A)</button> */}
                 <span className='' style={{fontWeight: 'bolder'}}>Sort Results by</span>
               </div>
             </div>
+            
+
             <div id="doctor-container" className='mt-4'>
               <h3 className='mb-3'>Closest Match to your Preferences</h3>
-              {
+              { 
                 // SAMPLE DOCTOR
                 // clinic_address: "Manila City"
                 // clinic_location: "Manila Doctors Hospital"
@@ -256,18 +389,16 @@ function Doctors () {
                 // price_range: "100-500"
                 // sex: "Male"
                 // specialization: "Cardiology"
-                doctors.map((doctor) => {
+                doctors.map((doctor, index) => {
                   return(
-                    <>
-                      <div className="row mb-2 cursor-pointer hover-effect-grey rounded-3" onClick={() => showDoctorInfo(doctor)}>
-                        <div className="col-1">
-                          <img src={doctor.sex === "Male" ? DoctorMale : DoctorFemale} alt="doctor_pic" style={{width: '50px'}}/>
-                        </div>
-                        <div className='col-4 ps-4'><span className="d-flex h-100 align-items-center">Dr. {doctor.name}<span class="badge bg-primary ms-2">{doctor.isFirst ? "1st" : "2nd"}</span> </span></div>
-                        <div className='col-3'><span className="d-flex h-100 align-items-center">{doctor.specialization}</span></div>
-                        <div className='col-4'><span className="d-flex h-100 align-items-center float-end">{doctor.clinic_address}</span></div>
+                    <div className="row mb-2 cursor-pointer hover-effect-grey rounded-3" key={index} onClick={() => showDoctorInfo(doctor)}>
+                      <div className="col-1">
+                        <img src={doctor.sex === "Male" ? DoctorMale : DoctorFemale} alt="doctor_pic" style={{width: '50px'}}/>
                       </div>
-                    </>
+                      <div className='col-4 ps-4'><span className="d-flex h-100 align-items-center">Dr. {doctor.name}<span class="badge bg-primary ms-2">{doctor.isFirst ? "1st" : "2nd"}</span> </span></div>
+                      <div className='col-3'><span className="d-flex h-100 align-items-center">{doctor.specialization}</span></div>
+                      <div className='col-4'><span className="d-flex h-100 align-items-center float-end">{doctor.clinic_address}</span></div>
+                    </div>
                   )
                 })
               }
@@ -283,10 +414,9 @@ function Doctors () {
                 // price_range: "100-500"
                 // sex: "Male"
                 // specialization: "Cardiology"
-                specDoctors.map((doctor) => {
+                specDoctors.map((doctor, index) => {
                   return(
-                    <>
-                      <div className="row mb-2 cursor-pointer hover-effect-grey rounded-3" onClick={() => showDoctorInfo(doctor)}>
+                      <div className="row mb-2 cursor-pointer hover-effect-grey rounded-3" key={index} onClick={() => showDoctorInfo(doctor)}>
                         <div className="col-1">
                           <img src={doctor.sex === "Male" ? DoctorMale : DoctorFemale} alt="doctor_pic" style={{width: '50px'}}/>
                         </div>
@@ -294,12 +424,16 @@ function Doctors () {
                         <div className='col-3'><span className="d-flex h-100 align-items-center">{doctor.specialization}</span></div>
                         <div className='col-4'><span className="d-flex h-100 align-items-center float-end">{doctor.clinic_address}</span></div>
                       </div>
-                    </>
                   )
                 })
               }
             </div>
           </div>
+          :
+          <div className="mx-5 my-5">
+            <h3>We couldn't find any {specialization} doctors in our database.</h3>
+          </div> 
+          }
         </div> 
         :
         <div className="col-9 m-0 min-vh-100 d-flex flex-column justify-content-center align-items-center">
