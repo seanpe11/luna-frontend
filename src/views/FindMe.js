@@ -342,8 +342,8 @@ class FindMe extends React.Component {
                       <>
                         <span style={{fontSize: '1.3rem'}}>{item.symptom.Name} - {item.frequency}</span> <br />
                         <span className="fst-italic">{item.location}</span> <br/>
-                        <span className="text-secondary">{item.details}</span>
-                        <br />
+                        <span className="text-secondary">{item.details === "" ? "No extra details inputted." : item.details}</span>
+                        <br /> <br />
                       </>
                     )
                   })
