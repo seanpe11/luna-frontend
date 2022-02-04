@@ -11,6 +11,7 @@ import { Modal, ModalBody } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEnvelope, faPhoneAlt } from '@fortawesome/free-solid-svg-icons'
 import "../css/luna.css"
+import Options from "../data/options.json"
 // import DoctorList from "../data/doctors.json"
 
 function queryDoctors (preferences, symptoms) {
@@ -58,6 +59,8 @@ function Doctors () {
 
   const location = useLocation()
   const {preferences, symptoms} = location.state
+  var [editMode, setEditMode] = useState(false);
+  var [editPreferences, setEditPreferences] = useState(preferences)
   var [doctors, setDoctors] = useState([])
   var [loaded, setLoaded] = useState([]) 
   var [specDoctors, setSpecDoctors] = useState([])
@@ -191,6 +194,7 @@ function Doctors () {
             </div>
             <div className="container rounded-3 p-3 m-3 text-white" style={{backgroundColor: "#3B4AD0"}}>
               <h5>Preferences</h5>
+              <h3 onClick={setEditMode(!editMode)}>Edit</h3>
               {
                     <table class="table table-borderless text-white">
                       <col style={{width: "30%"}} />

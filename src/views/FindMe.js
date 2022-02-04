@@ -406,14 +406,6 @@ class FindMe extends React.Component {
           >Go to Preference</button>
           )
       case 2:   
-        if(this.state.preferenceIndex < 4) 
-            return (<button 
-              type="button" 
-              class="btn btn-primary" 
-              style={{width: '200px'}}
-              onClick={() => {this.setState({preferenceIndex: this.state.preferenceIndex + 1, thereIsSelection: false})}}
-              >Next</button>)
-        else
             return(<button 
               type="button" 
               class="btn btn-primary" 
