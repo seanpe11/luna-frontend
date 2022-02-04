@@ -1,4 +1,4 @@
-import doctorimage from '../images/Doctor-talking-to-patient.jpg'
+import doctorimage from '../images/Doctor-talking-to-patient.png'
 import { useState } from 'react'
 import axios from 'axios'
 // import { changeValue } from '../store/auth'
