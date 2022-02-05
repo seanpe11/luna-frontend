@@ -1,9 +1,31 @@
+import { Dropdown } from 'react-bootstrap';
+import { forwardRef } from 'react';
 import '../css/Header.css';
 import logo from '../images/moon-full-moon-icon.png'
 import dp from '../images/profile_pic.png'
 
 function Header({active}) {
   const {firstName, lastName} = JSON.parse(sessionStorage.getItem("userData"))
+
+  const customToggle = forwardRef(({ children, onClick }, ref) => (
+    <button
+      ref={ref}
+      onClick={(e) => {
+        e.preventDefault();
+        onClick(e);
+      }}
+      class="btn btn-link float-end me-3 nav-link text-black"
+    >
+      {children}
+    </button>
+  ));
+
+  function logOut() {
+    sessionStorage.setItem("auth", 0)
+    sessionStorage.setItem("userData", "")
+    window.location.replace('/')
+  }
+  
 
     return <nav class="navbar navbar-expand-lg navbar-light">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -34,10 +56,15 @@ function Header({active}) {
                   <a class="nav-link" href="/doctors">Doctors</a>
               </li>
             </ul>
-            <a class="float-end me-3 nav-link text-black" href="/">
-              {firstName} {lastName}
-              <img className='ms-3 rounded-pill' src={dp} alt="profile pic" style={{width: '50px'}}/>
-            </a>
+            <Dropdown>
+              <Dropdown.Toggle as={customToggle}>
+                {firstName} {lastName}
+                <img className='ms-3 rounded-pill' src={dp} alt="profile pic" style={{width: '50px'}}/>
+              </Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Dropdown.Item onClick={() => logOut()}>Log out</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
         </div>
 
         <div class="">
