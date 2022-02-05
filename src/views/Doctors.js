@@ -105,6 +105,7 @@ function Doctors () {
         setNoDoctors(res.firstRecommendations.length + res.secondRecommendations.length > 0)
         // setDiagnosis(res.diagnosis)
         setSpecialization(res.diagnosis[0].Specialisation[0].Name)
+        console.log(res.diagnosis)
         setLoaded(true)
       })
   }

@@ -1,12 +1,132 @@
 import "../../css/Home.css";
 import { TiArrowRepeatOutline } from "react-icons/ti";
 import { Modal } from "react-bootstrap";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { pdf, Page, Text, View, Document, StyleSheet, Image, Link } from '@react-pdf/renderer';
+import { saveAs } from 'file-saver'
+import logo from '../../images/moon-full-moon-icon.png'
 
 function HistoryModal(props) {
-  const handleOpenDoctorsVersion = () => {
-    alert("Opened doctor version");
+  var [history, setHistory] = useState([])
+
+  const handleOpenDoctorsVersion = async (index) => {
+
+    const historyItem = history[index]
+
+    const userData = JSON.parse(sessionStorage.getItem("userData"))
+    console.log(userData)
+
+    const styles = StyleSheet.create({
+      page: {
+        backgroundColor: '#E4E4E4'
+      },
+      section: {
+        margin: 10,
+        padding: 10,
+        flexGrow: 1
+      },
+      logo: {
+        height: "50pt",
+        weight: "50pt",
+      },
+      header: {
+        alignItems: "flex-start"
+      },
+      text: {
+        fontSize: 14,
+        textAlign: 'justify',
+      },
+      heading: {
+        marginTop: "1cm"
+      }
+    });
+    
+    // Create Document Component
+    const MyDocument = () => (
+      <Document>
+        <Page size="A4" style={styles.page}>
+          <View style={styles.section}>
+            <View style={styles.header}>
+              <Image src={logo} style={styles.logo}></Image>
+              <Text>LUNA</Text>
+              <Text style={styles.text}>Find the best doctors for you.</Text>
+            </View>
+
+            <View>
+              <Text style={styles.heading}>Patient Details</Text>
+              <Text style={styles.text}>Name: {userData.firstName} {userData.lastName}</Text>
+              <Text style={styles.text}>Birthdate (mm/dd/yyyy): {userData.birthDate} </Text>
+              <Text style={styles.text}>Blood Type: {userData.medInfo.bloodType} </Text>
+              <Text style={styles.text}>Height (in cm): {userData.medInfo.heightCm} </Text>
+              <Text style={styles.text}>Weight (in kg): {userData.medInfo.weightKg} </Text>
+              <Text style={styles.text}>Dietary Restrictions: {userData.medInfo.diet} </Text>
+              <Text style={styles.text}>Known Illnesses: {userData.medInfo.illnesses} </Text>
+            </View>
+
+            <View>
+              <Text style={styles.heading}>Symptoms</Text>
+              <Text style={styles.text}>Date Taken: {historyItem.date}</Text>
+              <Text style={styles.text}>Symptoms:</Text>
+              {
+                historyItem.symptoms.map((item) => {
+                  return (
+                    <>
+                      <Text style={styles.text}>- {item.symptom.Name} ({item.location})</Text>
+                      <Text style={styles.text}>{item.frequency}</Text>
+                      <Text style={styles.text}>{item.details === "" ? "No extra details" : item.details}</Text>
+                    </>
+                  )
+                })
+              }
+            </View>
+
+            <View>
+              <Text style={styles.heading}>Initial Diagnosis Report</Text>
+              <Link src="https://apimedic.com/" style={styles.text}>From ApiMedic</Link>
+              <Text style={styles.text}>Date Taken: {historyItem.date}</Text>
+              {
+                historyItem.diagnosis.map((item) => {
+                  return (
+                    <>
+                      <Text style={styles.text}>1. {item.Issue.ProfName}</Text>
+                      <Text style={styles.text}>International Classification of Diseases (ICD): {item.Issue.Icd}</Text>
+                      <Text style={styles.text}>Accuracy: {item.Issue.Accuracy}%</Text>
+                    </>
+                  )
+                })
+              }
+            </View>
+          </View>
+        </Page>
+      </Document>
+    );
+
+    const doc = <MyDocument />;
+    const asPdf = pdf(); // {} is important, throws without an argument
+    asPdf.updateContainer(doc);
+    const blob = await asPdf.toBlob();
+    saveAs(blob, 'document.pdf');
   };
+
+  useEffect(() => {
+    getHistory()
+  }, [])
+
+  function getHistory() {
+    var {email} = JSON.parse(sessionStorage.getItem("userData"))
+    return axios.post(
+      'https://luna-backend-thesis.herokuapp.com/history',
+      {
+        email
+      }
+    ).then((res) => {
+      console.log(res.data)
+      setHistory(res.data.historyData)
+    }).catch(e => {
+      console.log('Error lol')
+    })
+  }
 
   return (
     <Modal
@@ -25,6 +145,7 @@ function HistoryModal(props) {
         </div>
         <div className="d-block text-center mb-5">
           <TiArrowRepeatOutline size="5em" />
+          <h3 class='mt-3'>History</h3>
         </div>
         <div className="container-fluid">
           <table
@@ -36,11 +157,10 @@ function HistoryModal(props) {
                 <th>Date (mm/dd/yyyy)</th>
                 <th>Symptoms Inputted</th>
                 <th>Doctors Preference</th>
-                <th>Doctors</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
+              {/* <tr>
                 <td>
                   <div className="d-block">
                     <ol>
@@ -62,6 +182,8 @@ function HistoryModal(props) {
                       <li>Vomitting</li>
                       <li>Nausea</li>
                     </ol>
+                    Recommended Specialization: <br />
+                    <strong>Internal Medicine</strong>
                   </div>
                 </td>
                 <td>
@@ -75,59 +197,50 @@ function HistoryModal(props) {
                     </ul>
                   </div>
                 </td>
-                <td>
-                  <strong>Internal Medicine</strong>
-                  <ol>
-                    <li>Dr. Philip Azcarraga</li>
-                    <li>Dr. Junel Cansana</li>
-                    <li>Dr. Pe Pe</li>
-                  </ol>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div className="d-block">
-                    <ol>
-                      <li>10/30/2021</li>
-                    </ol>
-                  </div>
-                  <button
-                    className="btn btn-info"
-                    style={{ backgroundColor: "#fff" }}
-                    onClick={() => handleOpenDoctorsVersion()}
-                  >
-                    OPEN DOCTORS VERSION
-                  </button>
-                </td>
-                <td>
-                  <div className="d-block">
-                    <ol>
-                      <li>Heart Attack</li>
-                      <li>Dizziness</li>
-                      <li>Muscle Ache</li>
-                    </ol>
-                  </div>
-                </td>
-                <td>
-                  <div className="d-block">
-                    <ul style={{ listStyleType: "none" }}>
-                      <li>Sex: Female</li>
-                      <li>Age Range: 30-35 years old</li>
-                      <li>Location: Taguig, Manila</li>
-                      <li>Price: PHP 1,500-2000</li>
-                      <li>Years in Practice: More than 5</li>
-                    </ul>
-                  </div>
-                </td>
-                <td>
-                  <strong>Cardiology</strong>
-                  <ol>
-                    <li>Dr. Rasheed Jamalul</li>
-                    <li>Dr. Jolo Cansana</li>
-                    <li>Dr. Sean Pe</li>
-                  </ol>
-                </td>
-              </tr>
+              </tr> */}
+              {
+                history.map((item, index) => {
+                  return(
+                    <tr>
+                      <td>
+                        <div className="d-block">
+                          <ol>
+                            <li>{item.date}</li>
+                          </ol>
+                        </div>
+                        <button
+                          className="btn btn-info"
+                          style={{ backgroundColor: "#fff" }}
+                          onClick={() => handleOpenDoctorsVersion(index)}
+                        >
+                          DOWNLOAD DOCTORS VERSION
+                        </button>
+                      </td>
+                      <td>
+                        <div className="d-block">
+                          <ol>
+                            {item.symptoms.map((symptom) => {
+                              return(<li>{symptom.symptom.Name}</li>)
+                            })}
+                          </ol>
+                          Recommended Specialization: <br />
+                          <strong>{item.diagnosis[0].Specialisation[0].Name}</strong>
+                        </div>
+                      </td>
+                      <td>
+                        <div className="d-block">
+                          <ul style={{ listStyleType: "none" }}>
+                            <li>Sex: {item.preferences.gender.act}</li>
+                            <li>Age Range: {item.preferences.age.act}</li>
+                            <li>Location: {item.preferences.location.act}</li>
+                            <li>Price: {item.preferences.price.act}</li>
+                            <li>Years in Practice: {item.preferences.experience.act}</li>
+                          </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  )}
+                )}
             </tbody>
           </table>
         </div>
