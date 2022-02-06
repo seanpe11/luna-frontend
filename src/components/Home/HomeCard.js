@@ -18,7 +18,7 @@ function HomeCard() {
         </div>
         <div class="ms-5">
           <div class="card-body" style={{ top: "20%" }}>
-            <h5 class="wc card-title ">Welcome,</h5>
+            <h5 class="wc card-title ">Welcome to LUNA,</h5>
             <p class="name card-text ">{firstName} {lastName}</p>
           </div>
         </div>

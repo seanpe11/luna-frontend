@@ -209,8 +209,7 @@ function HistoryModal(props) {
                           </ol>
                         </div>
                         <button
-                          className="btn btn-info"
-                          style={{ backgroundColor: "#fff" }}
+                          className="btn btn-light"
                           onClick={() => handleOpenDoctorsVersion(index)}
                         >
                           DOWNLOAD DOCTORS VERSION
