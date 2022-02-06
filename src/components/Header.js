@@ -21,7 +21,7 @@ function Header({active}) {
   ));
 
   function logOut() {
-    sessionStorage.setItem("auth", 0)
+    sessionStorage.setItem("auth", "")
     sessionStorage.setItem("userData", "")
     window.location.replace('/')
   }

@@ -11,9 +11,9 @@ import NotFound from './views/NotFound';
 // import { useSelector } from 'react-redux'
 
 function RequiredAuth() {
-  const auth = parseInt(sessionStorage.getItem("auth"))
+  const auth = sessionStorage.getItem("auth")
   console.log(auth)
-  if (!auth) {
+  if (auth === null || auth === "") {
     console.log("true")
     return <Navigate to="/login" />;
   }
