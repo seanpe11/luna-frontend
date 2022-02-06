@@ -42,6 +42,17 @@ function Register () {
     11: "November",
     12: "December"
   }
+
+  var bloodTypeDict = {
+    "ap": "A+",
+    "am": "A-",
+    "bp": "B+",
+    "bm": "B-",
+    "op": "O+",
+    "om": "O-",
+    "abp": "AB+",
+    "abm": "AB-",
+  }
   // , lastname, birthMonth, birthDay, birthYear, email, sex, password, confpassword, bloodType, heightCm, weightKg, diet, illnesses = ""
 
   useEffect(() => {
@@ -397,7 +408,7 @@ function Register () {
                       </tr>
                       <tr>
                         <th>Blood Type</th>
-                        <td>{bloodType}</td>
+                        <td>{bloodTypeDict[bloodType]}</td>
                       </tr>
                       <tr>
                         <th>Weight in kg</th>
