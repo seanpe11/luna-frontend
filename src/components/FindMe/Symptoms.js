@@ -225,9 +225,9 @@ class Symptoms extends React.Component {
                     </select>
                     <label for="floatingSelect">Frequency</label>
                   </div>
-                  <div class="form-floating mb-4">
-                    <textarea id="moredetails" class="form-control" placeholder="Leave a comment here" style={{ height: "100px" }} onChange={evt => this.setState({ moredetails: evt.target.value })}> </textarea>
+                  <div class="form mb-4">
                     <label for="floatingTextarea">More Details</label>
+                    <textarea id="moredetails" class="form-control" placeholder="Details can include specific body part, frequency, and more. If none, you can leave blank." style={{ height: "100px" }} onChange={evt => this.setState({ moredetails: evt.target.value })}> </textarea>
                   </div>
                   {this.state.symptomExistsError &&
                     <div class="alert alert-danger" role="alert">

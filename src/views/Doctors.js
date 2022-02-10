@@ -361,11 +361,6 @@ function Doctors () {
               }
               
             </div>
-            <div className="container">
-              <h5>Legend</h5>
-              <span class="badge bg-primary">1st</span> - All preferences and best specialization match <br/>
-              <span class="badge bg-primary">2nd</span> - Only specialization and location preference matched
-            </div>
           </div>
         </div>
         {loaded ? 
@@ -382,6 +377,14 @@ function Doctors () {
                 {/* <button type="button" class="btn btn-outline-secondary">Alphabetically (Z-A)</button> */}
                 <span className='' style={{fontWeight: 'bolder'}}>Sort Results by</span>
               </div>
+            </div>
+
+            <div className="d-flex align-items-center mt-3">
+              <span>
+                <h5 className='me-3'>Legend</h5>
+              </span>
+              <span className='me-3'><span class="badge bg-primary">1st</span> - All preferences and best specialization match</span>
+              <span className='me-3'><span class="badge bg-primary">2nd</span> - Only specialization and location preference matched</span>
             </div>
             
 

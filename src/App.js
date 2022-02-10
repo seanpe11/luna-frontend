@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './components/FontAwesomeIcons'
 import { Routes, Route, Navigate, Outlet } from "react-router-dom";
 import Home from './views/Home.js';
 import About from './views/About.js';

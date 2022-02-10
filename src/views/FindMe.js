@@ -513,6 +513,9 @@ class FindMe extends React.Component {
             </span>
           </div>
         </div>
+        <button className="btn btn-secondary rounded-circle" style={{position: 'absolute', left: '25px', bottom: '25px'}} onClick={() => {this.setState({modalShow: true})}}>
+          ?
+        </button>
       </>
     )
   }
